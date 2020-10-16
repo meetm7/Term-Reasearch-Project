@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "397224154214",
+    "firebase_url": "https://voyavue.firebaseio.com",
+    "project_id": "voyavue",
+    "storage_bucket": "voyavue.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397224154214:android:8f08566c37f64db60689a7",
+        "android_client_info": {
+          "package_name": "com.example.voyavue"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "397224154214-1qoch1nibl6c015ra00jtbk6t77qvshu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.voyavue",
+            "certificate_hash": "43adb8d7cf8c428142a65acb8d769dada865f033"
+          }
+        },
+        {
+          "client_id": "397224154214-2ack1fjdo59lu0r6hmgssd897ch4rb5a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5RTPvAb8WHSjW3tO0eZUsd-wirX1jlSo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "397224154214-2ack1fjdo59lu0r6hmgssd897ch4rb5a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
