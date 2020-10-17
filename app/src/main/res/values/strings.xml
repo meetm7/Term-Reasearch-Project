@@ -13,4 +13,9 @@
     <string name="profile">title_profile</string>
     <string name="title_explore">Explore</string>
     <string name="title_profile">Profile</string>
+    <string name="editTxtFullName">Full Name</string>
+    <string name="editTxtEmail">Email ID</string>
+    <string name="editTxtEnterPassword">Enter Password</string>
+    <string name="editTxtReEnterPassword">Re-enter Password</string>
+    <string name="btnRegister">Register</string>
 </resources>
