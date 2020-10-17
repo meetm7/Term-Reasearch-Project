@@ -18,4 +18,7 @@
     <string name="editTxtEnterPassword">Enter Password</string>
     <string name="editTxtReEnterPassword">Re-enter Password</string>
     <string name="btnRegister">Register</string>
+    <string name="txtViewAlreadyAMember">Already a Member? Log in</string>
+    <string name="btnLogin">Login</string>
+    <string name="txtViewNewMember">New Member? Register</string>
 </resources>
