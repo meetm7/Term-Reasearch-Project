@@ -92,10 +92,18 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btn_retrive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Retrive info" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
-        tools:listitem="@layout/profile_recycler_row"/>
+        tools:listitem="@layout/profile_recycler_row">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>
