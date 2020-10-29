@@ -1,6 +1,6 @@
 package com.example.voyavue.api;
 
-import com.example.voyavue.model.User;
+import com.example.voyavue.models.User;
 
 import java.util.List;
 

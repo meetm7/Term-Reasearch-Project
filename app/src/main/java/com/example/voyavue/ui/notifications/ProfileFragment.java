@@ -8,43 +8,39 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.voyavue.R;
-import com.example.voyavue.api.ApiCalls;
+import com.example.voyavue.models.User;
+
+import java.util.List;
 
 public class ProfileFragment extends Fragment {
 
-    private NotificationsViewModel notificationsViewModel;
+    private ProfileFragViewModel profileFragViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        notificationsViewModel =
-                ViewModelProviders.of(this).get(NotificationsViewModel.class);
+        profileFragViewModel =
+                ViewModelProviders.of(this).get(ProfileFragViewModel.class);
 
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
 
         final TextView tv = root.findViewById(R.id.tv_bio);
         final Button btn = root.findViewById(R.id.btn_retrive);
 
-        btn.setOnClickListener(new View.OnClickListener() {
+        profileFragViewModel.init();
+
+        profileFragViewModel.getUser().observe(getViewLifecycleOwner(), new Observer<List<User>>() {
             @Override
-            public void onClick(View v) {
-                notificationsViewModel.makeApiCall();
+            public void onChanged(List<User> users) {
+                tv.setText(users.toString());
             }
         });
 
-
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                tv.setText(s);
-            }
-        });
         return root;
     }
 }

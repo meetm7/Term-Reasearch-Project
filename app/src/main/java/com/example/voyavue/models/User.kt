@@ -1,4 +1,4 @@
-package com.example.voyavue.model
+package com.example.voyavue.models
 
 data class User(
         val firstName:String,
