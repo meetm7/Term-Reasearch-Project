@@ -33,10 +33,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        UserRepo uRepo = UserRepo.getInstance();
-        uRepo.getUserByEmail(currentUser.getEmail());
 
-        startMainActivity(currentUser.getEmail());
+        if (currentUser != null) {
+            UserRepo uRepo = UserRepo.getInstance();
+            uRepo.getUserByEmail(currentUser.getEmail());
+
+            startMainActivity(currentUser.getEmail());
+        }
     }
 
     @Override
@@ -117,13 +120,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
-                finish();
             }
         });
     }
 
     void startMainActivity(String userName) {
-        Toast.makeText(LoginActivity.this, userName, Toast.LENGTH_LONG).show();
+        Toast.makeText(LoginActivity.this, "Logged In: " + userName, Toast.LENGTH_LONG).show();
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
         finish();
     }

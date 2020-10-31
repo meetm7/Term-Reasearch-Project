@@ -29,15 +29,18 @@ public class ProfileFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        final TextView tv = root.findViewById(R.id.tv_bio);
-        final Button btn = root.findViewById(R.id.btn_retrive);
+        final TextView tvName = root.findViewById(R.id.tv_name);
+        final TextView tvUserName = root.findViewById(R.id.tv_id);
+        final TextView tvbio = root.findViewById(R.id.tv_bio);
 
         profileFragViewModel.init();
 
         profileFragViewModel.getUser().observe(getViewLifecycleOwner(), new Observer<User>() {
             @Override
-            public void onChanged(User users) {
-                tv.setText(users.toString());
+            public void onChanged(User user) {
+                tvName.setText(user.getLastName());
+                tvUserName.setText(user.getUserName());
+                tvbio.setText(user.getBio());
             }
         });
 

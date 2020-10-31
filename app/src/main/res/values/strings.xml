@@ -10,7 +10,6 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-    <string name="profile">title_profile</string>
     <string name="title_explore">Explore</string>
     <string name="title_profile">Profile</string>
     <string name="editTxtFullName">Full Name</string>

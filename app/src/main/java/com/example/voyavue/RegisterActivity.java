@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.voyavue.models.User;
+import com.example.voyavue.repositories.UserRepo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -54,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        if (mAuth.getCurrentUser() != null){
+        if (mAuth.getCurrentUser() != null) {
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
             finish();
         }
@@ -62,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
         editTxtEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if (TextUtils.isEmpty(editTxtEmail.getText().toString().trim())){
+                if (TextUtils.isEmpty(editTxtEmail.getText().toString().trim())) {
                     editTxtEmail.setError("Email is required!");
                     return;
                 }
@@ -72,11 +73,11 @@ public class RegisterActivity extends AppCompatActivity {
         editTxtEnterPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if (TextUtils.isEmpty(editTxtEnterPassword.getText().toString().trim())){
+                if (TextUtils.isEmpty(editTxtEnterPassword.getText().toString().trim())) {
                     editTxtEnterPassword.setError("Password is required!");
                     return;
                 }
-                if (editTxtEnterPassword.getText().toString().trim().length() < 6){
+                if (editTxtEnterPassword.getText().toString().trim().length() < 6) {
                     editTxtEnterPassword.setError("Password must be greater than 6 characters!");
                     return;
                 }
@@ -86,11 +87,11 @@ public class RegisterActivity extends AppCompatActivity {
         editTxtReEnterPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if (TextUtils.isEmpty(editTxtReEnterPassword.getText().toString().trim())){
+                if (TextUtils.isEmpty(editTxtReEnterPassword.getText().toString().trim())) {
                     editTxtReEnterPassword.setError("Please re-enter password!");
                     return;
                 }
-                if (editTxtReEnterPassword.getText().toString().trim().equals(editTxtEnterPassword.getText().toString().trim()) != true){
+                if (editTxtReEnterPassword.getText().toString().trim().equals(editTxtEnterPassword.getText().toString().trim()) != true) {
                     editTxtReEnterPassword.setError("Passwords do not match with each other!");
                     return;
                 }
@@ -100,37 +101,37 @@ public class RegisterActivity extends AppCompatActivity {
         editTxtUserName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if (TextUtils.isEmpty(editTxtUserName.getText().toString().trim())){
+                if (TextUtils.isEmpty(editTxtUserName.getText().toString().trim())) {
                     editTxtUserName.setError("Username is required!");
                     return;
                 }
             }
         });
 
-        editTxtMobNo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (TextUtils.isEmpty(editTxtMobNo.getText().toString().trim())){
-                    editTxtMobNo.setError("Mobile no. is required!");
-                    return;
-                }
-            }
-        });
+//        editTxtMobNo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View view, boolean b) {
+//                if (TextUtils.isEmpty(editTxtMobNo.getText().toString().trim())){
+//                    editTxtMobNo.setError("Mobile no. is required!");
+//                    return;
+//                }
+//            }
+//        });
 
-        editTxtDOB.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (TextUtils.isEmpty(editTxtDOB.getText().toString().trim())){
-                    editTxtDOB.setError("Date of Birth is required!");
-                    return;
-                }
-            }
-        });
+//        editTxtDOB.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View view, boolean b) {
+//                if (TextUtils.isEmpty(editTxtDOB.getText().toString().trim())){
+//                    editTxtDOB.setError("Date of Birth is required!");
+//                    return;
+//                }
+//            }
+//        });
 
         editTxtFirstName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if (TextUtils.isEmpty(editTxtFirstName.getText().toString().trim())){
+                if (TextUtils.isEmpty(editTxtFirstName.getText().toString().trim())) {
                     editTxtFirstName.setError("First name is required!");
                     return;
                 }
@@ -140,22 +141,22 @@ public class RegisterActivity extends AppCompatActivity {
         editTxtLastName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if (TextUtils.isEmpty(editTxtLastName.getText().toString().trim())){
+                if (TextUtils.isEmpty(editTxtLastName.getText().toString().trim())) {
                     editTxtLastName.setError("Last name is required!");
                     return;
                 }
             }
         });
 
-        editTxtBio.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (TextUtils.isEmpty(editTxtBio.getText().toString().trim())){
-                    editTxtBio.setError("Bio is required!");
-                    return;
-                }
-            }
-        });
+//        editTxtBio.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View view, boolean b) {
+//                if (TextUtils.isEmpty(editTxtBio.getText().toString().trim())){
+//                    editTxtBio.setError("Bio is required!");
+//                    return;
+//                }
+//            }
+//        });
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,15 +164,15 @@ public class RegisterActivity extends AppCompatActivity {
                 final String email = editTxtEmail.getText().toString().trim();
                 String password = editTxtEnterPassword.getText().toString().trim();
 
-                if (TextUtils.isEmpty(email)){
+                if (TextUtils.isEmpty(email)) {
                     editTxtEmail.setError("Email is required!");
                     return;
                 }
-                if (TextUtils.isEmpty(password)){
+                if (TextUtils.isEmpty(password)) {
                     editTxtEnterPassword.setError("Password is required!");
                     return;
                 }
-                if (password.length() < 6){
+                if (password.length() < 6) {
                     editTxtEnterPassword.setError("Password must be greater than 6 characters!");
                     return;
                 }
@@ -181,9 +182,19 @@ public class RegisterActivity extends AppCompatActivity {
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             Toast.makeText(RegisterActivity.this, "User Created!", Toast.LENGTH_LONG).show();
-                            //TODO: make api call to add user
+                            user = new User(editTxtFirstName.getText().toString(),
+                                    editTxtLastName.getText().toString(),
+                                    editTxtUserName.getText().toString(),
+                                    editTxtEmail.getText().toString(),
+                                    editTxtMobNo.getText().toString(),
+                                    editTxtDOB.getText().toString(),
+                                    spinnerSex.getSelectedItem().toString(),
+                                    editTxtBio.getText().toString()
+                                    );
+                            UserRepo uRepo = UserRepo.getInstance();
+                            uRepo.addUserNewUser(user);
 
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             finish();

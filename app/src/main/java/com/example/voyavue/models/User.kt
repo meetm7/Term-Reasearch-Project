@@ -8,7 +8,7 @@ data class User(
         val userName: String,
         val email: String,
         val contactNumber: String,
-        val dob: Date,
+        val dob: String,
         val sex:String,
         val bio:String
 )

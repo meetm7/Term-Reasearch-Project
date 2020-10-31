@@ -27,6 +27,10 @@ public class UserRepo {
         return instance;
     }
 
+    public void clearUserInfo() {
+        userData = null;
+    }
+
     public MutableLiveData<User> getUser() {
         if (userData == null) {
             userData = new MutableLiveData<>();
@@ -74,17 +78,5 @@ public class UserRepo {
                 Log.d("UserRepo", "Cannot create user");
             }
         });
-        /*call.enqueue(new Callback<List<User>>() {
-            @Override
-            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                userData.postValue(response.body());
-                Log.d("Response", "onResponse: " + response.body().toString());
-            }
-
-            @Override
-            public void onFailure(Call<List<User>> call, Throwable t) {
-                Log.d("UserRepo:", "Cannot get user data");
-            }
-        });*/
     }
 }
