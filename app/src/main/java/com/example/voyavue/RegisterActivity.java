@@ -121,7 +121,37 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (TextUtils.isEmpty(editTxtDOB.getText().toString().trim())){
-                    editTxtDOB.setError("Email is required!");
+                    editTxtDOB.setError("Date of Birth is required!");
+                    return;
+                }
+            }
+        });
+
+        editTxtFirstName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (TextUtils.isEmpty(editTxtFirstName.getText().toString().trim())){
+                    editTxtFirstName.setError("First name is required!");
+                    return;
+                }
+            }
+        });
+
+        editTxtLastName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (TextUtils.isEmpty(editTxtLastName.getText().toString().trim())){
+                    editTxtLastName.setError("Last name is required!");
+                    return;
+                }
+            }
+        });
+
+        editTxtBio.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (TextUtils.isEmpty(editTxtBio.getText().toString().trim())){
+                    editTxtBio.setError("Bio is required!");
                     return;
                 }
             }
