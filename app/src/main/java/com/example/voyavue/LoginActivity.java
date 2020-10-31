@@ -13,10 +13,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.voyavue.repositories.UserRepo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -25,6 +27,17 @@ public class LoginActivity extends AppCompatActivity {
     TextView txtViewNewMember;
     ProgressBar progressBarLogin;
     FirebaseAuth mAuth;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        UserRepo uRepo = UserRepo.getInstance();
+        uRepo.getUserByEmail(currentUser.getEmail());
+
+        startMainActivity(currentUser.getEmail());
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         editTxtLoginEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if (TextUtils.isEmpty(editTxtLoginEmail.getText().toString().trim())){
+                if (TextUtils.isEmpty(editTxtLoginEmail.getText().toString().trim())) {
                     editTxtLoginEmail.setError("Full name is required!");
                     return;
                 }
@@ -52,11 +65,11 @@ public class LoginActivity extends AppCompatActivity {
         editTxtLoginPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if (TextUtils.isEmpty(editTxtLoginPassword.getText().toString().trim())){
+                if (TextUtils.isEmpty(editTxtLoginPassword.getText().toString().trim())) {
                     editTxtLoginPassword.setError("Password is required!");
                     return;
                 }
-                if (editTxtLoginPassword.getText().toString().trim().length() < 6){
+                if (editTxtLoginPassword.getText().toString().trim().length() < 6) {
                     editTxtLoginPassword.setError("Password must be greater than 6 characters!");
                     return;
                 }
@@ -69,15 +82,15 @@ public class LoginActivity extends AppCompatActivity {
                 String email = editTxtLoginEmail.getText().toString().trim();
                 String password = editTxtLoginPassword.getText().toString().trim();
 
-                if (TextUtils.isEmpty(email)){
+                if (TextUtils.isEmpty(email)) {
                     editTxtLoginEmail.setError("Email is required!");
                     return;
                 }
-                if (TextUtils.isEmpty(password)){
+                if (TextUtils.isEmpty(password)) {
                     editTxtLoginPassword.setError("Password is required!");
                     return;
                 }
-                if (password.length() < 6){
+                if (password.length() < 6) {
                     editTxtLoginPassword.setError("Password must be greater than 6 characters!");
                     return;
                 }
@@ -87,10 +100,11 @@ public class LoginActivity extends AppCompatActivity {
                 mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
-                            Toast.makeText(LoginActivity.this, "User logged in!", Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            finish();
+                        if (task.isSuccessful()) {
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            UserRepo uRepo = UserRepo.getInstance();
+                            uRepo.getUserByEmail(user.getEmail());
+                            startMainActivity(user.getEmail());
                         } else {
                             Toast.makeText(LoginActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
@@ -106,5 +120,11 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    void startMainActivity(String userName) {
+        Toast.makeText(LoginActivity.this, userName, Toast.LENGTH_LONG).show();
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        finish();
     }
 }

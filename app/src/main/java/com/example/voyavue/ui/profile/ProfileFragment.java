@@ -34,9 +34,9 @@ public class ProfileFragment extends Fragment {
 
         profileFragViewModel.init();
 
-        profileFragViewModel.getUser().observe(getViewLifecycleOwner(), new Observer<List<User>>() {
+        profileFragViewModel.getUser().observe(getViewLifecycleOwner(), new Observer<User>() {
             @Override
-            public void onChanged(List<User> users) {
+            public void onChanged(User users) {
                 tv.setText(users.toString());
             }
         });

@@ -17,7 +17,7 @@ import retrofit2.Response;
 public class UserRepo {
 
     private static UserRepo instance;
-    private MutableLiveData<List<User>> userData;
+    private MutableLiveData<User> userData;
 
     public static UserRepo getInstance() {
         if (instance == null) {
@@ -27,18 +27,54 @@ public class UserRepo {
         return instance;
     }
 
-    public MutableLiveData<List<User>> getUser() {
+    public MutableLiveData<User> getUser() {
         if (userData == null) {
             userData = new MutableLiveData<>();
-            fetchUserFromApi();
         }
         return userData;
     }
 
-    public void fetchUserFromApi() {
+    public MutableLiveData<User> getUserByEmail(String email) {
+        if (userData == null) {
+            userData = new MutableLiveData<>();
+            fetchUserInfo(email);
+        }
+        return userData;
+    }
+
+    public void fetchUserInfo(String email) {
         ApiCalls apiCall = RetroInstance.getRetrofitClient().create(ApiCalls.class);
-        Call<List<User>> call = apiCall.getUserDetails();
-        call.enqueue(new Callback<List<User>>() {
+        Call<User> call = apiCall.getUserDetails(email);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                userData.postValue(response.body());
+                Log.d("Response", "onResponse: " + response.body().toString());
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.d("UserRepo:", "Cannot get user data");
+            }
+        });
+    }
+
+    public void addUserNewUser(User userInfo) {
+        ApiCalls apiCall = RetroInstance.getRetrofitClient().create(ApiCalls.class);
+        Call<User> call = apiCall.addUser(userInfo);
+
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                userData.postValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.d("UserRepo", "Cannot create user");
+            }
+        });
+        /*call.enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 userData.postValue(response.body());
@@ -49,6 +85,6 @@ public class UserRepo {
             public void onFailure(Call<List<User>> call, Throwable t) {
                 Log.d("UserRepo:", "Cannot get user data");
             }
-        });
+        });*/
     }
 }

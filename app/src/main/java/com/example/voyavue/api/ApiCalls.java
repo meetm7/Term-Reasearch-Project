@@ -2,12 +2,16 @@ package com.example.voyavue.api;
 
 import com.example.voyavue.models.User;
 
-import java.util.List;
-
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface ApiCalls {
-    @GET("users")
-    Call<List<User>> getUserDetails();
+    @GET("userInfo")
+    Call<User> getUserDetails(@Query(value = "email") String email);
+
+    @POST("addUser")
+    Call<User> addUser(@Body User user);
 }
