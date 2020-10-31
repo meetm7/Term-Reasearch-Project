@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,10 +23,12 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText editTxtEmail, editTxtEnterPassword, editTxtReEnterPassword;
+    EditText editTxtEmail, editTxtEnterPassword, editTxtReEnterPassword, editTxtUserName, editTxtMobNo, editTxtDOB, editTxtFirstName, editTxtLastName, editTxtBio;
     Button btnRegister;
     TextView txtViewAlreadyMember;
     ProgressBar progressBar;
+    Spinner spinnerSex;
+
     FirebaseAuth mAuth;
     User user;
 
@@ -40,12 +43,20 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
         txtViewAlreadyMember = findViewById(R.id.txtViewAlreadyMember);
         progressBar = findViewById(R.id.progressBar);
+        editTxtUserName = findViewById(R.id.editTxtUserName);
+        editTxtMobNo = findViewById(R.id.editTxtMobNo);
+        editTxtDOB = findViewById(R.id.editTxtDOB);
+        editTxtFirstName = findViewById(R.id.editTxtFirstName);
+        editTxtLastName = findViewById(R.id.editTxtLastName);
+        editTxtBio = findViewById(R.id.editTxtBio);
+
+        spinnerSex = findViewById(R.id.spinnerSex);
 
         mAuth = FirebaseAuth.getInstance();
 
         if (mAuth.getCurrentUser() != null){
-            //startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            //finish();
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            finish();
         }
 
         editTxtEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -86,6 +97,36 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+        editTxtUserName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (TextUtils.isEmpty(editTxtUserName.getText().toString().trim())){
+                    editTxtUserName.setError("Username is required!");
+                    return;
+                }
+            }
+        });
+
+        editTxtMobNo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (TextUtils.isEmpty(editTxtMobNo.getText().toString().trim())){
+                    editTxtMobNo.setError("Mobile no. is required!");
+                    return;
+                }
+            }
+        });
+
+        editTxtDOB.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (TextUtils.isEmpty(editTxtDOB.getText().toString().trim())){
+                    editTxtDOB.setError("Email is required!");
+                    return;
+                }
+            }
+        });
+
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,7 +154,8 @@ public class RegisterActivity extends AppCompatActivity {
                         if (task.isSuccessful()){
                             Toast.makeText(RegisterActivity.this, "User Created!", Toast.LENGTH_LONG).show();
                             //TODO: make api call to add user
-                            startActivity(new Intent(getApplicationContext(), UserInfoRegisterActivity.class));
+
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             finish();
                         } else {
                             Toast.makeText(RegisterActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
