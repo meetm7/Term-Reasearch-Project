@@ -1,4 +1,4 @@
-package com.example.voyavue.ui.dashboard;
+package com.example.voyavue.ui.explore;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

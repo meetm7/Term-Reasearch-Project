@@ -30,12 +30,12 @@ public class UserRepo {
     public MutableLiveData<List<User>> getUser() {
         if (userData == null) {
             userData = new MutableLiveData<>();
-            makeApiCall();
+            fetchUserFromApi();
         }
         return userData;
     }
 
-    public void makeApiCall() {
+    public void fetchUserFromApi() {
         ApiCalls apiCall = RetroInstance.getRetrofitClient().create(ApiCalls.class);
         Call<List<User>> call = apiCall.getUserDetails();
         call.enqueue(new Callback<List<User>>() {

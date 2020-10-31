@@ -1,4 +1,4 @@
-package com.example.voyavue.ui.notifications;
+package com.example.voyavue.ui.profile;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

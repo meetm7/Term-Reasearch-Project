@@ -1,4 +1,4 @@
-package com.example.voyavue.ui.dashboard;
+package com.example.voyavue.ui.explore;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
