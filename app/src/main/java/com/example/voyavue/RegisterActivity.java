@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.voyavue.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -21,18 +22,18 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText editTxtFullName, editTxtEmail, editTxtEnterPassword, editTxtReEnterPassword;
+    EditText editTxtEmail, editTxtEnterPassword, editTxtReEnterPassword;
     Button btnRegister;
     TextView txtViewAlreadyMember;
     ProgressBar progressBar;
     FirebaseAuth mAuth;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        editTxtFullName = findViewById(R.id.editTxtFullName);
         editTxtEmail = findViewById(R.id.editTxtEmail);
         editTxtEnterPassword = findViewById(R.id.editTxtEnterPassword);
         editTxtReEnterPassword = findViewById(R.id.editTxtReEnterPassword);
@@ -46,16 +47,6 @@ public class RegisterActivity extends AppCompatActivity {
             //startActivity(new Intent(getApplicationContext(), MainActivity.class));
             //finish();
         }
-
-        editTxtFullName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (TextUtils.isEmpty(editTxtFullName.getText().toString().trim())){
-                    editTxtFullName.setError("Full name is required!");
-                    return;
-                }
-            }
-        });
 
         editTxtEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -98,7 +89,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = editTxtEmail.getText().toString().trim();
+                final String email = editTxtEmail.getText().toString().trim();
                 String password = editTxtEnterPassword.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)){
@@ -121,7 +112,8 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             Toast.makeText(RegisterActivity.this, "User Created!", Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            user = new User("", "", "", email, "", null, "" ,"");
+                            startActivity(new Intent(getApplicationContext(), UserInfoRegisterActivity.class));
                             finish();
                         } else {
                             Toast.makeText(RegisterActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();

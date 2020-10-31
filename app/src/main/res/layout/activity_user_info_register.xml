@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    tools:context=".UserInfoRegisterActivity">
 
     <ImageView
         android:id="@+id/imageViewLogo"
@@ -19,42 +19,91 @@
         app:srcCompat="@drawable/logo" />
 
     <EditText
-        android:id="@+id/editTxtEmail"
+        android:id="@+id/editTxtUserName"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:ems="10"
-        android:hint="@string/editTxtEmail"
-        android:inputType="textEmailAddress"
+        android:hint="@string/editTxtUserName"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewLogo" />
 
     <EditText
-        android:id="@+id/editTxtEnterPassword"
+        android:id="@+id/editTxtMobNo"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:ems="10"
-        android:hint="@string/editTxtEnterPassword"
-        android:inputType="textPassword"
+        android:hint="@string/editTxtMobNo"
+        android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTxtEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/editTxtUserName" />
 
     <EditText
-        android:id="@+id/editTxtReEnterPassword"
+        android:id="@+id/editTxtDOB"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:ems="10"
-        android:hint="@string/editTxtReEnterPassword"
-        android:inputType="textPassword"
+        android:hint="@string/editTxtEnterDOB"
+        android:inputType="date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTxtEnterPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/editTxtMobNo" />
+
+    <EditText
+        android:id="@+id/editTxtFirstName"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="@string/editTxtFirstName"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTxtDOB" />
+
+    <EditText
+        android:id="@+id/editTxtLastName"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="@string/editTxtLastName"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTxtFirstName" />
+
+    <Spinner
+        android:id="@+id/spinnerSex"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:entries="@array/Gender"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTxtLastName" />
+
+    <EditText
+        android:id="@+id/editTxtBio"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="@string/editTxtBio"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerSex" />
 
     <Button
         android:id="@+id/btnRegister"
@@ -67,7 +116,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTxtReEnterPassword"
+        app:layout_constraintTop_toBottomOf="@+id/editTxtBio"
         tools:text="@string/btnRegister" />
 
     <TextView
@@ -89,7 +138,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
