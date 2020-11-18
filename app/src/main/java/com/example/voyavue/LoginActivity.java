@@ -38,7 +38,9 @@ public class LoginActivity extends AppCompatActivity {
             UserRepo uRepo = UserRepo.getInstance();
             uRepo.getUserByEmail(currentUser.getEmail());
 
-            startMainActivity(currentUser.getEmail());
+            if (uRepo.getUser().getValue() != null) {
+                startMainActivity(currentUser.getEmail());
+            }
         }
     }
 
@@ -110,6 +112,7 @@ public class LoginActivity extends AppCompatActivity {
                             startMainActivity(user.getEmail());
                         } else {
                             Toast.makeText(LoginActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                            progressBarLogin.setVisibility(View.INVISIBLE);
                         }
                     }
                 });

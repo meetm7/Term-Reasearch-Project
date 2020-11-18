@@ -52,8 +52,13 @@ public class UserRepo {
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                userData.postValue(response.body());
-                Log.d("Response", "onResponse: " + response.body().toString());
+                if (response.body() != null) {
+                    userData.postValue(response.body());
+                    Log.d("Response", "onResponse: " + response.body().toString());
+                }
+                else{
+                    Log.d("UserRepo:", "Cannot get user data");
+                }
             }
 
             @Override

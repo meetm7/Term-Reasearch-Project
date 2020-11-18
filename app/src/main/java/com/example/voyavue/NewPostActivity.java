@@ -84,12 +84,17 @@ public class NewPostActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<Post>>() {
             @Override
             public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-                Log.d("TAG", "onResponse: " + response.body().get(0).getImg());
+                Log.d("TAG", "onResponse: " + response.body());
+
+                byte[] encodeByte = Base64.decode(response.body().get(0).getImg(), Base64.DEFAULT);
+                Bitmap bitmap2 = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+                ImageView imageView2 = (ImageView) findViewById(R.id.imgView2);
+                imageView2.setImageBitmap(bitmap2);
             }
 
             @Override
             public void onFailure(Call<List<Post>> call, Throwable t) {
-
+                Log.d("TAG", "onResponse: Failed");
             }
         });
     }
@@ -122,8 +127,6 @@ public class NewPostActivity extends AppCompatActivity {
             byte[] encodeByte = Base64.decode(encoded, Base64.DEFAULT);
             Bitmap bitmap2 = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
 
-            ImageView imageView2 = (ImageView) findViewById(R.id.imgView2);
-            imageView2.setImageBitmap(bitmap2);
         }
     }
 
@@ -133,10 +136,10 @@ public class NewPostActivity extends AppCompatActivity {
                 encoded,
                 "new Image",
                 2,
-                "", "",
-                "",
-                "",
-                "",
+                "img desc", "img Tag",
+                "location",
+                "time to",
+                "expe ",
                 false,
                 false);
 
@@ -146,7 +149,7 @@ public class NewPostActivity extends AppCompatActivity {
         call.enqueue(new Callback<Post>() {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {
-                Log.d("TAG", "onResponse: " + Response.success(post).body().toString());
+                Log.d("TAG", "onResponse: " + response.body());
             }
 
             @Override
