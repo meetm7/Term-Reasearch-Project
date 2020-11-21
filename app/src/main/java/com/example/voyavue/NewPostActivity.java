@@ -4,7 +4,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -19,19 +18,13 @@ import android.widget.ImageView;
 import com.example.voyavue.api.ApiCalls;
 import com.example.voyavue.api.RetroInstance;
 import com.example.voyavue.models.Post;
-import com.example.voyavue.models.User;
 import com.example.voyavue.repositories.UserRepo;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
-import retrofit2.CallAdapter;
 import retrofit2.Callback;
 import retrofit2.Response;
 
@@ -40,7 +33,7 @@ public class NewPostActivity extends AppCompatActivity {
     private static final int RESULT_LOAD_IMAGE = 1;
 
     String encoded;
-    Button btnUpload, btnSave, btnFecth;
+    //Button btnUpload, btnSave, btnFecth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +42,35 @@ public class NewPostActivity extends AppCompatActivity {
 
         encoded = null;
 
-        btnUpload = findViewById(R.id.btnUpload);
-        btnSave = findViewById(R.id.btn_save);
-        btnFecth = findViewById(R.id.btn_fetch);
+        //btnUpload = findViewById(R.id.btnUpload);
+        //btnSave = findViewById(R.id.btn_save);
+        //btnFecth = findViewById(R.id.btn_fetch);
 
-        btnUpload.setOnClickListener(new View.OnClickListener() {
+//        btnUpload.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(
+//                        Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                startActivityForResult(i, RESULT_LOAD_IMAGE);
+//            }
+//        });
+//
+//        btnSave.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                savePost();
+//            }
+//        });
+//
+//        btnFecth.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                fetchPost();
+//            }
+//        });
+
+        ImageView imgViewPost = findViewById(R.id.imgViewPost);
+        imgViewPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(
@@ -62,19 +79,15 @@ public class NewPostActivity extends AppCompatActivity {
             }
         });
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
+        Button btnPost = findViewById(R.id.btnPost);
+        btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 savePost();
             }
         });
 
-        btnFecth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fetchPost();
-            }
-        });
+
     }
 
     private void fetchPost() {
@@ -88,8 +101,8 @@ public class NewPostActivity extends AppCompatActivity {
 
                 byte[] encodeByte = Base64.decode(response.body().get(0).getImg(), Base64.DEFAULT);
                 Bitmap bitmap2 = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-                ImageView imageView2 = (ImageView) findViewById(R.id.imgView2);
-                imageView2.setImageBitmap(bitmap2);
+                //ImageView imageView2 = (ImageView) findViewById(R.id.imgView2);
+                //imageView2.setImageBitmap(bitmap2);
             }
 
             @Override
@@ -116,7 +129,7 @@ public class NewPostActivity extends AppCompatActivity {
             }
 
             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-            ImageView imageView = (ImageView) findViewById(R.id.imgView);
+            ImageView imageView = (ImageView) findViewById(R.id.imgViewPost);
             imageView.setImageBitmap(bitmap);
 
             ByteArrayOutputStream stream = new ByteArrayOutputStream();

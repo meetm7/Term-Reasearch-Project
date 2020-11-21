@@ -28,6 +28,11 @@
     <string name="editTxtLastName">Last Name</string>
     <string name="editTxtSex">Sex</string>
     <string name="editTxtBio">Write something about you.</string>
+    <string name="imageTitleHint">Image Title</string>
+    <string name="imageDescHint">Image Description</string>
+    <string name="timeToVisitHint">Best Time to Visit !</string>
+    <string name="costEstimationHint">Cost (Approx.)</string>
+    <string name="btnPost">Post !</string>
     <string-array name="Gender">
         <item>Male</item>
         <item>Female</item>
