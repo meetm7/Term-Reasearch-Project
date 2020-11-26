@@ -33,6 +33,9 @@
     <string name="timeToVisitHint">Best Time to Visit !</string>
     <string name="costEstimationHint">Cost (Approx.)</string>
     <string name="btnPost">Post !</string>
+    <string name="PostOwnerPicture">Owner profile picture</string>
+    <string name="PostPicture">Post main display picture</string>
+    <string name="StarButton">Star button to like post</string>
     <string-array name="Gender">
         <item>Male</item>
         <item>Female</item>
