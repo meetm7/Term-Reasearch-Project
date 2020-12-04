@@ -193,6 +193,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     spinnerSex.getSelectedItem().toString(),
                                     editTxtBio.getText().toString()
                                     );
+
                             UserRepo uRepo = UserRepo.getInstance();
                             uRepo.addUserNewUser(user);
 

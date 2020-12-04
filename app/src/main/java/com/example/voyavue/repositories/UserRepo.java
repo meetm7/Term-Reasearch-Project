@@ -55,8 +55,7 @@ public class UserRepo {
                 if (response.body() != null) {
                     userData.postValue(response.body());
                     Log.d("Response", "onResponse: " + response.body().toString());
-                }
-                else{
+                } else {
                     Log.d("UserRepo:", "Cannot get user data");
                 }
             }
@@ -75,7 +74,10 @@ public class UserRepo {
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                userData.postValue(response.body());
+                if (response.body() != null) {
+                    userData = new MutableLiveData<>();
+                    userData.postValue(response.body());
+                }
             }
 
             @Override
