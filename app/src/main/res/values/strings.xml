@@ -36,6 +36,7 @@
     <string name="PostOwnerPicture">Owner profile picture</string>
     <string name="PostPicture">Post main display picture</string>
     <string name="StarButton">Star button to like post</string>
+    <string name="title_new">Add Post</string>
     <string-array name="Gender">
         <item>Male</item>
         <item>Female</item>
