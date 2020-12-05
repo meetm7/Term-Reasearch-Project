@@ -2,9 +2,11 @@ package com.example.voyavue;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.voyavue.models.User;
 import com.example.voyavue.repositories.UserRepo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -36,11 +39,12 @@ public class LoginActivity extends AppCompatActivity {
 
         if (currentUser != null) {
             UserRepo uRepo = UserRepo.getInstance();
-            uRepo.getUserByEmail(currentUser.getEmail());
+            User loginUser = uRepo.getUserByEmail(currentUser.getEmail()).getValue();
+            Toast.makeText(LoginActivity.this, loginUser.component3(), Toast.LENGTH_LONG).show();
 
-            if (uRepo.getUser().getValue() != null) {
-                startMainActivity(currentUser.getEmail());
-            }
+//            if (uRepo.getUser().getValue() != null) {
+//                startMainActivity(currentUser.getEmail());
+//            }
         }
     }
 
@@ -108,8 +112,12 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
                             UserRepo uRepo = UserRepo.getInstance();
-                            uRepo.getUserByEmail(user.getEmail());
-                            startMainActivity(user.getEmail());
+                            User loginUser = uRepo.getUserByEmail(user.getEmail()).getValue();
+
+                            Toast.makeText(LoginActivity.this, loginUser.component3(), Toast.LENGTH_LONG).show();
+//                            if (uRepo.getUser().getValue() != null) {
+//                                startMainActivity(user.getEmail());
+//                            }
                         } else {
                             Toast.makeText(LoginActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                             progressBarLogin.setVisibility(View.INVISIBLE);
@@ -127,8 +135,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    void startMainActivity(String userName) {
-        Toast.makeText(LoginActivity.this, "Logged In: " + userName, Toast.LENGTH_LONG).show();
+    void startMainActivity(User loggedInUser) {
+        Toast.makeText(LoginActivity.this, "Logged In: " + loggedInUser.component3(), Toast.LENGTH_LONG).show();
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
         finish();
     }
