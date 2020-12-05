@@ -42,9 +42,9 @@ public class LoginActivity extends AppCompatActivity {
             User loginUser = uRepo.getUserByEmail(currentUser.getEmail()).getValue();
             Toast.makeText(LoginActivity.this, loginUser.component3(), Toast.LENGTH_LONG).show();
 
-//            if (uRepo.getUser().getValue() != null) {
-//                startMainActivity(currentUser.getEmail());
-//            }
+            if (uRepo.getUser().getValue() != null) {
+                startMainActivity(loginUser);
+            }
         }
     }
 
@@ -115,9 +115,9 @@ public class LoginActivity extends AppCompatActivity {
                             User loginUser = uRepo.getUserByEmail(user.getEmail()).getValue();
 
                             Toast.makeText(LoginActivity.this, loginUser.component3(), Toast.LENGTH_LONG).show();
-//                            if (uRepo.getUser().getValue() != null) {
-//                                startMainActivity(user.getEmail());
-//                            }
+                            if (uRepo.getUser().getValue() != null) {
+                                startMainActivity(loginUser);
+                            }
                         } else {
                             Toast.makeText(LoginActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                             progressBarLogin.setVisibility(View.INVISIBLE);

@@ -13,6 +13,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.voyavue.api.ApiCalls;
@@ -33,6 +34,9 @@ public class NewPostActivity extends AppCompatActivity {
     private static final int RESULT_LOAD_IMAGE = 1;
 
     String encoded;
+    EditText editTxtImgTitle;
+    ImageView imgViewPost;
+    Button btnPost;
     //Button btnUpload, btnSave, btnFecth;
 
     @Override
@@ -69,7 +73,7 @@ public class NewPostActivity extends AppCompatActivity {
 //            }
 //        });
 
-        ImageView imgViewPost = findViewById(R.id.imgViewPost);
+        imgViewPost = findViewById(R.id.imgViewPost);
         imgViewPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,7 +83,8 @@ public class NewPostActivity extends AppCompatActivity {
             }
         });
 
-        Button btnPost = findViewById(R.id.btnPost);
+        editTxtImgTitle = findViewById(R.id.editTxtImgTitle);
+        btnPost = findViewById(R.id.btnPost);
         btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,7 +134,7 @@ public class NewPostActivity extends AppCompatActivity {
             }
 
             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-            ImageView imageView = (ImageView) findViewById(R.id.imgViewPost);
+            ImageView imageView = findViewById(R.id.imgViewPost);
             imageView.setImageBitmap(bitmap);
 
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -147,7 +152,7 @@ public class NewPostActivity extends AppCompatActivity {
 
         final Post post = new Post(UserRepo.getInstance().getUser().getValue().getUserName(),
                 encoded,
-                "new Image",
+                editTxtImgTitle.getText().toString(),
                 2,
                 "img desc",
                 "img Tag",
