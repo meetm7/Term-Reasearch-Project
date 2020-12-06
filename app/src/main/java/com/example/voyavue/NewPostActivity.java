@@ -86,7 +86,7 @@ public class NewPostActivity extends AppCompatActivity {
             imageView.setImageBitmap(bitmap);
 
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
 
             encoded = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
 
@@ -95,7 +95,7 @@ public class NewPostActivity extends AppCompatActivity {
 
     private void savePost() {
 
-        final Post post = new Post(UserRepo.getInstance().getUser().getValue().getUserName(),
+        final Post post = new Post("",UserRepo.getInstance().getUser().getValue().getUserName(),
                 encoded,
                 editTxtImgTitle.getText().toString(),
                 2,

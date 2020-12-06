@@ -1,6 +1,7 @@
 package com.example.voyavue.models
 
 data class Post(
+        val _id: String,
         val userName: String,
         val img: String,
         val imgTitle: String,

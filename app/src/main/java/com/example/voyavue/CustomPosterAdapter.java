@@ -45,9 +45,9 @@ public class CustomPosterAdapter extends RecyclerView.Adapter<CustomPosterAdapte
 
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
-        holder.txtViewPostOwnerUserName.setText(postLists.get(position).component1());
-        holder.txtViewPostTitle.setText(postLists.get(position).component3());
-        holder.txtViewPostDescription.setText(postLists.get(position).component5());
+        holder.txtViewPostOwnerUserName.setText(postLists.get(position).getUserName());
+        holder.txtViewPostTitle.setText(postLists.get(position).getImgTitle());
+        holder.txtViewPostDescription.setText(postLists.get(position).getImgDesc());
 
         byte[] encodeByte = Base64.decode(postLists.get(position).getImg(), Base64.DEFAULT);
         Bitmap bitmap2 = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
