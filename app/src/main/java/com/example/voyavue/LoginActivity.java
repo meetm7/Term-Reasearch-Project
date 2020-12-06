@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextPaint;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.voyavue.api.ApiCalls;
+import com.example.voyavue.api.RetroInstance;
 import com.example.voyavue.models.User;
 import com.example.voyavue.repositories.UserRepo;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,6 +25,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -38,14 +45,34 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (currentUser != null) {
-            UserRepo uRepo = UserRepo.getInstance();
-            User loginUser = uRepo.getUserByEmail(currentUser.getEmail()).getValue();
-            Toast.makeText(LoginActivity.this, loginUser.component3(), Toast.LENGTH_LONG).show();
 
-            if (uRepo.getUser().getValue() != null) {
-                startMainActivity(loginUser);
-            }
+            fetchUserInfo(currentUser.getEmail());
         }
+    }
+
+    public void fetchUserInfo(String email) {
+        ApiCalls apiCall = RetroInstance.getRetrofitClient().create(ApiCalls.class);
+        Call<User> call = apiCall.getUserDetails(email);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.body() != null) {
+                    UserRepo uRepo = UserRepo.getInstance();
+                    uRepo.setUser(response.body());
+
+                    startMainActivity(uRepo.getUser().getValue());
+
+                    Log.d("Response", "onResponse: " + response.body().toString());
+                } else {
+                    Log.d("UserRepo:", "Cannot get user data");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.d("UserRepo:", "Cannot get user data");
+            }
+        });
     }
 
     @Override
@@ -111,13 +138,8 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            UserRepo uRepo = UserRepo.getInstance();
-                            User loginUser = uRepo.getUserByEmail(user.getEmail()).getValue();
 
-                            Toast.makeText(LoginActivity.this, loginUser.component3(), Toast.LENGTH_LONG).show();
-                            if (uRepo.getUser().getValue() != null) {
-                                startMainActivity(loginUser);
-                            }
+                            fetchUserInfo(user.getEmail());
                         } else {
                             Toast.makeText(LoginActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                             progressBarLogin.setVisibility(View.INVISIBLE);
@@ -136,7 +158,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     void startMainActivity(User loggedInUser) {
-        Toast.makeText(LoginActivity.this, "Logged In: " + loggedInUser.component3(), Toast.LENGTH_LONG).show();
+        Toast.makeText(LoginActivity.this, "Logged In: " + loggedInUser.toString(), Toast.LENGTH_LONG).show();
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
         finish();
     }

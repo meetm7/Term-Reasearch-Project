@@ -1,8 +1,11 @@
 package com.example.voyavue.api;
 
+import com.example.voyavue.models.AdditionProfileInfo;
 import com.example.voyavue.models.Post;
 import com.example.voyavue.models.User;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MultipartBody;
@@ -13,6 +16,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
 
@@ -27,5 +31,14 @@ public interface ApiCalls {
     Call<Post> addPost(@Body Post post);
 
     @GET("getPostsByUser")
-    Call<List<Post>> getPosts(@Query(value = "userName") String userName);
+    Call<ArrayList<Post>> getPostsByUser(@Query(value = "userName") String userName);
+
+    @GET("getAllPosts")
+    Call<List<Post>> getAllPosts();
+
+    @GET("getUserProfileInfo")
+    Call<AdditionProfileInfo> getUserProfileInfoByUserName(@Query(value = "userName") String userName);
+
+    @PUT("updateUserInfo")
+    Call<User> updateUserInfo(@Body User user);
 }

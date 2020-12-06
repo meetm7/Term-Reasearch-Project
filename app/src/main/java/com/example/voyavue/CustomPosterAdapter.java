@@ -1,6 +1,9 @@
 package com.example.voyavue;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +48,10 @@ public class CustomPosterAdapter extends RecyclerView.Adapter<CustomPosterAdapte
         holder.txtViewPostOwnerUserName.setText(postLists.get(position).component1());
         holder.txtViewPostTitle.setText(postLists.get(position).component3());
         holder.txtViewPostDescription.setText(postLists.get(position).component5());
+
+        byte[] encodeByte = Base64.decode(postLists.get(position).getImg(), Base64.DEFAULT);
+        Bitmap bitmap2 = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+        holder.imgViewPostPicture.setImageBitmap(bitmap2);
     }
 
     @Override

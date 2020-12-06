@@ -37,7 +37,6 @@ public class NewPostActivity extends AppCompatActivity {
     EditText editTxtImgTitle;
     ImageView imgViewPost;
     Button btnPost;
-    //Button btnUpload, btnSave, btnFecth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,34 +45,8 @@ public class NewPostActivity extends AppCompatActivity {
 
         encoded = null;
 
-        //btnUpload = findViewById(R.id.btnUpload);
-        //btnSave = findViewById(R.id.btn_save);
-        //btnFecth = findViewById(R.id.btn_fetch);
-
-//        btnUpload.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(
-//                        Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                startActivityForResult(i, RESULT_LOAD_IMAGE);
-//            }
-//        });
-//
-//        btnSave.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                savePost();
-//            }
-//        });
-//
-//        btnFecth.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                fetchPost();
-//            }
-//        });
-
         imgViewPost = findViewById(R.id.imgViewPost);
+
         imgViewPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,30 +64,6 @@ public class NewPostActivity extends AppCompatActivity {
                 savePost();
             }
         });
-
-
-    }
-
-    private void fetchPost() {
-        ApiCalls apiCall = RetroInstance.getRetrofitClient().create(ApiCalls.class);
-        Call<List<Post>> call = apiCall.getPosts(UserRepo.getInstance().getUser().getValue().getUserName());
-
-        call.enqueue(new Callback<List<Post>>() {
-            @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-                Log.d("TAG", "onResponse: " + response.body());
-
-                byte[] encodeByte = Base64.decode(response.body().get(0).getImg(), Base64.DEFAULT);
-                Bitmap bitmap2 = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-                //ImageView imageView2 = (ImageView) findViewById(R.id.imgView2);
-                //imageView2.setImageBitmap(bitmap2);
-            }
-
-            @Override
-            public void onFailure(Call<List<Post>> call, Throwable t) {
-                Log.d("TAG", "onResponse: Failed");
-            }
-        });
     }
 
     @Override
@@ -123,7 +72,6 @@ public class NewPostActivity extends AppCompatActivity {
 
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
             Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
             InputStream inputStream = null;
 
@@ -141,9 +89,6 @@ public class NewPostActivity extends AppCompatActivity {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 
             encoded = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
-
-            byte[] encodeByte = Base64.decode(encoded, Base64.DEFAULT);
-            Bitmap bitmap2 = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
 
         }
     }

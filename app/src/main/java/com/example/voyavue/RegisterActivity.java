@@ -2,11 +2,13 @@ package com.example.voyavue;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,12 +17,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.voyavue.api.ApiCalls;
+import com.example.voyavue.api.RetroInstance;
 import com.example.voyavue.models.User;
 import com.example.voyavue.repositories.UserRepo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -108,26 +116,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-//        editTxtMobNo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View view, boolean b) {
-//                if (TextUtils.isEmpty(editTxtMobNo.getText().toString().trim())){
-//                    editTxtMobNo.setError("Mobile no. is required!");
-//                    return;
-//                }
-//            }
-//        });
-
-//        editTxtDOB.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View view, boolean b) {
-//                if (TextUtils.isEmpty(editTxtDOB.getText().toString().trim())){
-//                    editTxtDOB.setError("Date of Birth is required!");
-//                    return;
-//                }
-//            }
-//        });
-
         editTxtFirstName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -147,16 +135,6 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
-
-//        editTxtBio.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View view, boolean b) {
-//                if (TextUtils.isEmpty(editTxtBio.getText().toString().trim())){
-//                    editTxtBio.setError("Bio is required!");
-//                    return;
-//                }
-//            }
-//        });
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -194,11 +172,8 @@ public class RegisterActivity extends AppCompatActivity {
                                     editTxtBio.getText().toString()
                                     );
 
-                            UserRepo uRepo = UserRepo.getInstance();
-                            uRepo.addUserNewUser(user);
+                            addUserNewUser(user);
 
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            finish();
                         } else {
                             Toast.makeText(RegisterActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
@@ -211,6 +186,30 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            }
+        });
+    }
+
+    public void addUserNewUser(User userInfo) {
+        ApiCalls apiCall = RetroInstance.getRetrofitClient().create(ApiCalls.class);
+        Call<User> call = apiCall.addUser(userInfo);
+
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.body() != null) {
+                    UserRepo uRepo = UserRepo.getInstance();
+
+                    uRepo.setUser(response.body());
+
+                    startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.d("UserRepo", "Cannot create user");
             }
         });
     }

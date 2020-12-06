@@ -7,97 +7,198 @@
     android:orientation="vertical"
     tools:context=".ui.profile.ProfileFragment">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/ic_faces_24" />
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TableLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="450dp"
+                android:layout_margin="10dp">
 
-                <TableRow
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tv_name"
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".6"
-                        android:text="Name" />
+                        android:id="@+id/tvUserName"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:gravity="center"
+                        android:text="User Name" />
 
                     <TextView
-                        android:id="@+id/tv_post"
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".2"
+                        android:id="@+id/tvEmailId"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:gravity="center"
+                        android:text="Email Id" />
+
+                    <TextView
+                        android:id="@+id/tvFName"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:gravity="center"
+                        android:text="First Name" />
+
+                    <TextView
+                        android:id="@+id/tvLName"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:gravity="center"
+                        android:text="Last Name" />
+
+                    <TextView
+                        android:id="@+id/tvContactNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:gravity="center"
+                        android:text="Contact Number" />
+
+                    <TextView
+                        android:id="@+id/tvDob"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:gravity="center"
+                        android:text="DOB" />
+
+                    <TextView
+                        android:id="@+id/tvGender"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:gravity="center"
+                        android:text="Gender" />
+
+                    <TextView
+                        android:id="@+id/tvBio"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:gravity="center"
+                        android:text="Bio" />
+
+                    <TextView
+                        android:id="@+id/tvPosts"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:gravity="center"
                         android:text="Posts" />
 
                     <TextView
-                        android:id="@+id/tv_friends"
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".2"
+                        android:id="@+id/tvNumberOfFriends"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:gravity="center"
                         android:text="Friends" />
-                </TableRow>
+                </LinearLayout>
 
-                <TableRow
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/tv_id"
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".6"
-                        android:text="BBM123" />
+                    <EditText
+                        android:id="@+id/etUName"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:inputType="textPersonName"
+                        android:text="Name" />
 
-                    <TextView
-                        android:id="@+id/tv_postVal"
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".2"
-                        android:text="122" />
+                    <EditText
+                        android:id="@+id/etEmailId"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:editable="false"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:inputType="textPersonName"
+                        android:text="Email Id" />
 
-                    <TextView
-                        android:id="@+id/tv_friendsVal"
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".2"
-                        android:text="212" />
+                    <EditText
+                        android:id="@+id/etFName"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="First name" />
 
-                </TableRow>
+                    <EditText
+                        android:id="@+id/etLName"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="Last Name" />
 
-            </TableLayout>
+                    <EditText
+                        android:id="@+id/etContactNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="Contact Number" />
 
-            <TextView
-                android:id="@+id/tv_bio"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="bio" />
+                    <EditText
+                        android:id="@+id/etDOB"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="DOB" />
+
+                    <Spinner
+                        android:id="@+id/spinnerGender"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp" />
+
+                    <EditText
+                        android:id="@+id/etBio"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="Bio" />
+
+                    <EditText
+                        android:id="@+id/etPosts"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:editable="false"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:inputType="textPersonName"
+                        android:text="No Posts" />
+
+                    <EditText
+                        android:id="@+id/etFriends"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:editable="false"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:inputType="textPersonName"
+                        android:text="0" />
+                </LinearLayout>
+
+            </LinearLayout>
         </LinearLayout>
+    </ScrollView>
 
-    </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        tools:listitem="@layout/profile_recycler_row">
-
-    </androidx.recyclerview.widget.RecyclerView>
+    <Button
+        android:id="@+id/btnUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginRight="80dp"
+        android:text="Save" />
 
 </LinearLayout>

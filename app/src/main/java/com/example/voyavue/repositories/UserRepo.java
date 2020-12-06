@@ -38,52 +38,8 @@ public class UserRepo {
         return userData;
     }
 
-    public MutableLiveData<User> getUserByEmail(String email) {
-        if (userData == null) {
-            userData = new MutableLiveData<>();
-            fetchUserInfo(email);
-        }
-        return userData;
-    }
-
-    public void fetchUserInfo(String email) {
-        ApiCalls apiCall = RetroInstance.getRetrofitClient().create(ApiCalls.class);
-        Call<User> call = apiCall.getUserDetails(email);
-        call.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                if (response.body() != null) {
-                    userData.postValue(response.body());
-                    Log.d("Response", "onResponse: " + response.body().toString());
-                } else {
-                    Log.d("UserRepo:", "Cannot get user data");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Log.d("UserRepo:", "Cannot get user data");
-            }
-        });
-    }
-
-    public void addUserNewUser(User userInfo) {
-        ApiCalls apiCall = RetroInstance.getRetrofitClient().create(ApiCalls.class);
-        Call<User> call = apiCall.addUser(userInfo);
-
-        call.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                if (response.body() != null) {
-                    userData = new MutableLiveData<>();
-                    userData.postValue(response.body());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Log.d("UserRepo", "Cannot create user");
-            }
-        });
+    public void setUser(User user) {
+        userData = new MutableLiveData<>();
+        userData.setValue(user);
     }
 }
