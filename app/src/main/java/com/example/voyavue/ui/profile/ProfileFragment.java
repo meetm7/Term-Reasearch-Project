@@ -101,7 +101,9 @@ public class ProfileFragment extends Fragment {
                         etContactNumber.getText().toString(),
                         etDob.getText().toString(),
                         gender,
-                        etBio.getText().toString());
+                        etBio.getText().toString(),
+                        false
+                );
 
                 updateUserInfo(newInfo);
             }
@@ -120,7 +122,7 @@ public class ProfileFragment extends Fragment {
                     UserRepo uRepo = UserRepo.getInstance();
                     uRepo.setUser(response.body());
 
-                    Toast.makeText(getContext(),"User Info Updated",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "User Info Updated", Toast.LENGTH_SHORT).show();
                     Log.d("Response", "onResponse: " + response.body().toString());
                 } else {
                     Log.d("ProfileFrag:", "Cannot get user data");
@@ -129,7 +131,7 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                Log.d("ProfileFrag:", "Cannot get data"+t.getMessage());
+                Log.d("ProfileFrag:", "Cannot get data" + t.getMessage());
             }
         });
     }

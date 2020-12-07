@@ -12,6 +12,8 @@ import com.example.voyavue.models.Post;
 import com.example.voyavue.repositories.UserRepo;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,8 +30,6 @@ public class ExploreViewModel extends ViewModel {
 
     public void fetchPost() {
 
-        UserRepo uRepo = UserRepo.getInstance();
-
         ApiCalls apiCall = RetroInstance.getRetrofitClient().create(ApiCalls.class);
         Call<ArrayList<Post>> call = apiCall.getAllPublicPosts();
         call.enqueue(new Callback<ArrayList<Post>>() {
@@ -44,6 +44,30 @@ public class ExploreViewModel extends ViewModel {
             }
         });
 
+    }
+
+    public void filterByTags(String tags) {
+        if (mPost.getValue() != null) {
+
+            List<Post> newList = mPost.getValue().stream()
+                    .filter(post -> post.getImgTag().compareTo(tags) == 0).collect(Collectors.toList());
+
+            if (newList.size() > 0) {
+                mPost.setValue((ArrayList<Post>) newList);
+            }
+        }
+    }
+
+    public void filterByLocation(String location) {
+        if (mPost.getValue() != null) {
+
+            List<Post> newList = mPost.getValue().stream()
+                    .filter(post -> post.getLocation().compareTo(location) == 0).collect(Collectors.toList());
+
+            if (newList.size() > 0) {
+                mPost.setValue((ArrayList<Post>) newList);
+            }
+        }
     }
 
     public LiveData<ArrayList<Post>> getPosts() {

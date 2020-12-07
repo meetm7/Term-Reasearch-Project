@@ -159,7 +159,14 @@ public class LoginActivity extends AppCompatActivity {
 
     void startMainActivity(User loggedInUser) {
         Toast.makeText(LoginActivity.this, "Welcome: " + loggedInUser.getUserName(), Toast.LENGTH_LONG).show();
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
+        if (loggedInUser.isAdmin()) {
+            startActivity(new Intent(getApplicationContext(), AdminActivity.class));
+        } else {
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        }
+
         finish();
+
     }
 }

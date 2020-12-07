@@ -14,7 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".AdminActivity"></activity>
-        <activity android:name=".ui.postdetailedview.PostDetailedViewActivity" />
         <activity android:name=".NewPostActivity"></activity>
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".LoginActivity">

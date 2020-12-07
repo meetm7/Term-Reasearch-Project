@@ -10,5 +10,6 @@ data class User(
         val contactNumber: String,
         val dob: String,
         val sex:String,
-        val bio:String
+        val bio:String,
+        val isAdmin: Boolean
 )

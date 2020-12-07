@@ -28,11 +28,7 @@ public class AdminActivity extends AppCompatActivity {
         textViewAvgNumOfLikes = findViewById(R.id.textViewAvgNumOfLikes);
         textViewNumOfVerifiedPosts = findViewById(R.id.textViewNumOfVerifiedPosts);
 
-        btnAddVerifiedPost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(AdminActivity.this, NewPostActivity.class));
-            }
-        });
+        btnAddVerifiedPost.setOnClickListener(view ->
+                startActivity(new Intent(AdminActivity.this, NewPostActivity.class)));
     }
 }

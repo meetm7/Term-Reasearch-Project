@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.ToggleButton;
 
@@ -54,10 +55,39 @@ public class ExploreFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(customPosterAdapter);
 
-        exploreViewModel.getPosts().observe(getViewLifecycleOwner(), new Observer<ArrayList<Post>>() {
+        exploreViewModel.getPosts().observe(getViewLifecycleOwner(), posts -> customPosterAdapter.ChangeData(posts));
+
+        spinnerTagsFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onChanged(ArrayList<Post> posts) {
-                customPosterAdapter.ChangeData(posts);
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                exploreViewModel.filterByTags(spinnerTagsFilter.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                return;
+            }
+
+        });
+
+        spinnerLocationFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                exploreViewModel.filterByLocation(spinnerLocationFilter.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                return;
+            }
+
+        });
+
+        tglBtnVerifiedFilter.setOnClickListener(v -> {
+            if (tglBtnVerifiedFilter.isChecked()) {
+                tglBtnVerifiedFilter.setTextOff("Unverified Posts");
+            } else {
+                tglBtnVerifiedFilter.setTextOn("Verified Posts");
             }
         });
 
@@ -66,15 +96,12 @@ public class ExploreFragment extends Fragment {
 
 
     private void setOnClickListner() {
-        mListner = new CustomPosterAdapter.RecyclerViewClickListener() {
-            @Override
-            public void onClick(View v, String id) {
-                Intent i = new Intent(v.getContext(), NewPostActivity.class);
-                i.putExtra("postId", id);
-                i.putExtra("isEditable", true);
+        mListner = (v, id) -> {
+            Intent i = new Intent(v.getContext(), NewPostActivity.class);
+            i.putExtra("postId", id);
+            i.putExtra("isEditable", false);
 
-                startActivity(i);
-            }
+            startActivity(i);
         };
     }
 }

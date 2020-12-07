@@ -235,7 +235,7 @@ public class NewPostActivity extends AppCompatActivity {
             imageView.setImageBitmap(bitmap);
 
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 
             encoded = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
 
@@ -261,7 +261,7 @@ public class NewPostActivity extends AppCompatActivity {
                 spinnerLocation.getSelectedItem().toString(),
                 editTxtTimeToVisit.getText().toString(),
                 editTxtCost.getText().toString(),
-                false,
+                UserRepo.getInstance().getUser().getValue().isAdmin(),
                 false);
 
         Call<Post> call = apiCall.addPost(post);

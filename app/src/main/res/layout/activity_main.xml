@@ -31,17 +31,18 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabtn_addPost"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:clickable="true"
-        app:fabCustomSize="90dp"
+        app:backgroundTint="#918D8D"
+        app:fabCustomSize="70dp"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintHorizontal_bias="0.953"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.893"
+        app:layout_constraintVertical_bias="0.865"
         app:maxImageSize="90dp"
         app:rippleColor="#E64A19"
         app:srcCompat="@android:drawable/ic_menu_add" />

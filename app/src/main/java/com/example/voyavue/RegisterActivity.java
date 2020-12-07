@@ -169,8 +169,9 @@ public class RegisterActivity extends AppCompatActivity {
                                     editTxtMobNo.getText().toString(),
                                     editTxtDOB.getText().toString(),
                                     spinnerSex.getSelectedItem().toString(),
-                                    editTxtBio.getText().toString()
-                                    );
+                                    editTxtBio.getText().toString(),
+                                    false
+                            );
 
                             addUserNewUser(user);
 
@@ -182,12 +183,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        txtViewAlreadyMember.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-            }
-        });
+        txtViewAlreadyMember.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), LoginActivity.class)));
     }
 
     public void addUserNewUser(User userInfo) {
@@ -202,7 +198,11 @@ public class RegisterActivity extends AppCompatActivity {
 
                     uRepo.setUser(response.body());
 
-                    startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                    if (uRepo.getUser().getValue().isAdmin()) {
+                        startActivity(new Intent(RegisterActivity.this, AdminActivity.class));
+                    } else {
+                        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                    }
                     finish();
                 }
             }
