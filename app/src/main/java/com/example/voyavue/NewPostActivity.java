@@ -40,12 +40,19 @@ public class NewPostActivity extends AppCompatActivity {
     EditText editTxtImgTitle, editTxtImgDesc, editTxtTimeToVisit, editTxtCost;
     ImageView imgViewPost;
     Spinner spinnerImgTags, spinnerLocation;
-    Button btnPost;
+    Button btnPost, btnDel;
+
+    String id = "";
+    boolean isEditable = true;
+
+    ApiCalls apiCall;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_post);
+
+        apiCall = RetroInstance.getRetrofitClient().create(ApiCalls.class);
 
         imgViewPost = findViewById(R.id.imgViewPost);
         editTxtImgTitle = findViewById(R.id.editTxtImgTitle);
@@ -55,17 +62,35 @@ public class NewPostActivity extends AppCompatActivity {
         spinnerImgTags = findViewById(R.id.spinnerImgTags);
         spinnerLocation = findViewById(R.id.spinnerLocation);
         btnPost = findViewById(R.id.btnPost);
+        btnDel = findViewById(R.id.btnDelete);
 
         encoded = null;
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            String id = extras.getString("postId");
+            id = extras.getString("postId");
             boolean isEditable = extras.getBoolean("isEditable");
 
             getPost(id);
 
+            btnPost.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    updatePost(id);
+                }
+            });
+
+            btnDel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    delPost(id);
+                }
+            });
+
         } else {
+
+            btnDel.setText("Close");
+
             imgViewPost.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -81,7 +106,52 @@ public class NewPostActivity extends AppCompatActivity {
                     savePost();
                 }
             });
+
+            btnDel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
         }
+
+    }
+
+    private void delPost(String id) {
+
+        Call<Post> call = apiCall.deletePost(id);
+
+        call.enqueue(new Callback<Post>() {
+            @Override
+            public void onResponse(Call<Post> call, Response<Post> response) {
+                Toast.makeText(NewPostActivity.this, "Post Updated", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<Post> call, Throwable t) {
+                Log.d("TAG", "onFailure: " + t.getMessage());
+                Toast.makeText(NewPostActivity.this, "Failed to perform action", Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+
+    private void updatePost(String id) {
+
+        Call<Post> call = apiCall.updatePost(id);
+
+        call.enqueue(new Callback<Post>() {
+            @Override
+            public void onResponse(Call<Post> call, Response<Post> response) {
+                Toast.makeText(NewPostActivity.this, "Post Updated", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<Post> call, Throwable t) {
+                Log.d("TAG", "onFailure: " + t.getMessage());
+                Toast.makeText(NewPostActivity.this, "Failed to perform action", Toast.LENGTH_LONG).show();
+            }
+        });
 
     }
 
@@ -89,7 +159,6 @@ public class NewPostActivity extends AppCompatActivity {
 
         Toast.makeText(NewPostActivity.this, "Retrieving Post details", Toast.LENGTH_LONG).show();
 
-        ApiCalls apiCall = RetroInstance.getRetrofitClient().create(ApiCalls.class);
         Call<Post> call = apiCall.getPost(id);
 
         call.enqueue(new Callback<Post>() {
@@ -122,7 +191,13 @@ public class NewPostActivity extends AppCompatActivity {
         spinnerImgTags = findViewById(R.id.spinnerImgTags);
         spinnerLocation = findViewById(R.id.spinnerLocation);
 
-        btnPost.setText("Save");
+        if (isEditable) {
+            btnPost.setText("Save");
+        } else {
+            btnPost.setVisibility(View.INVISIBLE);
+            btnDel.setText("Close");
+        }
+
     }
 
     @Override
@@ -174,7 +249,6 @@ public class NewPostActivity extends AppCompatActivity {
                 false,
                 false);
 
-        ApiCalls apiCall = RetroInstance.getRetrofitClient().create(ApiCalls.class);
         Call<Post> call = apiCall.addPost(post);
 
         call.enqueue(new Callback<Post>() {
