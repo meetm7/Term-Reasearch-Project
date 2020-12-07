@@ -60,11 +60,10 @@ public class CustomPosterAdapter extends RecyclerView.Adapter<CustomPosterAdapte
     }
 
     public class CustomViewHolder extends RecyclerView.ViewHolder{
-        ImageView imgViewPostOwnerPhoto, imgViewPostPicture;
+        ImageView imgViewPostPicture;
         TextView txtViewPostTitle, txtViewPostOwnerUserName, txtViewPostDescription;
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
-            imgViewPostOwnerPhoto = itemView.findViewById(R.id.imgViewPostOwnerPhoto);
             imgViewPostPicture = itemView.findViewById(R.id.imgViewPostPicture);
 
             txtViewPostOwnerUserName = itemView.findViewById(R.id.txtViewPostOwnerUserName);

@@ -4,30 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/txtViewPostOwnerUserName"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp">
-
-        <ImageView
-            android:id="@+id/imgViewPostOwnerPhoto"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical"
-            android:contentDescription="@string/PostOwnerPicture"
-            tools:srcCompat="@tools:sample/avatars" />
-
-        <TextView
-            android:id="@+id/txtViewPostOwnerUserName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="10dp"
-            android:textSize="24sp" />
-    </LinearLayout>
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="10dp"
+        android:textSize="24sp" />
 
     <ImageView
         android:id="@+id/imgViewPostPicture"
@@ -51,7 +37,7 @@
             android:layout_gravity="center_vertical"
             android:layout_margin="10dp"
             android:contentDescription="@string/StarButton"
-            app:srcCompat="@android:drawable/btn_star_big_off" />
+            app:srcCompat="@android:drawable/ic_menu_view" />
 
         <TextView
             android:id="@+id/txtViewNumberOfStars"
@@ -59,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:text="starred by meet_m7 and 1000 others" />
+            android:text="viewed by 1000 people" />
     </LinearLayout>
 
     <TextView
