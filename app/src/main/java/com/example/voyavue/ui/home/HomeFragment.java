@@ -48,12 +48,7 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(customPosterAdapter);
 
-        homeViewModel.getPosts().observe(getViewLifecycleOwner(), new Observer<ArrayList<Post>>() {
-            @Override
-            public void onChanged(ArrayList<Post> posts) {
-                customPosterAdapter.ChangeData(posts);
-            }
-        });
+        homeViewModel.getPosts().observe(getViewLifecycleOwner(), posts -> customPosterAdapter.ChangeData(posts));
 
         return root;
     }
@@ -65,15 +60,12 @@ public class HomeFragment extends Fragment {
     }
 
     private void setOnClickListner() {
-        mListner = new CustomPosterAdapter.RecyclerViewClickListener() {
-            @Override
-            public void onClick(View v, String id) {
-                Intent i = new Intent(v.getContext(), NewPostActivity.class);
-                i.putExtra("postId", id);
-                i.putExtra("isEditable", true);
+        mListner = (v, id) -> {
+            Intent i = new Intent(v.getContext(), NewPostActivity.class);
+            i.putExtra("postId", id);
+            i.putExtra("isEditable", true);
 
-                startActivity(i);
-            }
+            startActivity(i);
         };
     }
 }

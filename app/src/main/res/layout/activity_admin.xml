@@ -67,25 +67,6 @@
                             android:layout_height="match_parent">
 
                             <TextView
-                                android:id="@+id/textView4"
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:text="Average number of posts per user:"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-                            <TextView
-                                android:id="@+id/textViewAvgPostPerUser"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="5"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-                        </TableRow>
-
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <TextView
                                 android:id="@+id/textView6"
                                 android:layout_width="150dp"
                                 android:layout_height="wrap_content"

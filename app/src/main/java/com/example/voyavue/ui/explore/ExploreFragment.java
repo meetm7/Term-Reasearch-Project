@@ -88,6 +88,7 @@ public class ExploreFragment extends Fragment {
         tglBtnVerifiedFilter.setOnClickListener(v -> {
             if (tglBtnVerifiedFilter.isChecked()) {
                 tglBtnVerifiedFilter.setTextOff("Unverified Posts");
+                exploreViewModel.fetchPost();
             } else {
                 tglBtnVerifiedFilter.setTextOn("Verified Posts");
                 exploreViewModel.filterVerifiedPosts();
