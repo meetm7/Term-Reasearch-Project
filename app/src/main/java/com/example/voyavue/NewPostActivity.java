@@ -124,7 +124,8 @@ public class NewPostActivity extends AppCompatActivity {
         call.enqueue(new Callback<Post>() {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {
-                Toast.makeText(NewPostActivity.this, "Post Updated", Toast.LENGTH_LONG).show();
+                Toast.makeText(NewPostActivity.this, "Post deleted", Toast.LENGTH_LONG).show();
+                finish();
             }
 
             @Override
@@ -138,7 +139,21 @@ public class NewPostActivity extends AppCompatActivity {
 
     private void updatePost(String id) {
 
-        Call<Post> call = apiCall.updatePost(id);
+        Post updatePost = new Post(id, UserRepo.getInstance().getUser().getValue().getUserName(),
+                "",
+                editTxtImgTitle.getText().toString(),
+                0,
+                editTxtImgDesc.getText().toString(),
+                spinnerImgTags.getSelectedItem().toString(),
+                spinnerLocation.getSelectedItem().toString(),
+                editTxtTimeToVisit.getText().toString(),
+                editTxtCost.getText().toString(),
+                false,
+                false);
+
+        Log.d("TAG", "updatePost: " + updatePost.toString());
+
+        Call<Post> call = apiCall.updatePost(updatePost);
 
         call.enqueue(new Callback<Post>() {
             @Override
@@ -237,7 +252,7 @@ public class NewPostActivity extends AppCompatActivity {
             return;
         }
 
-        final Post post = new Post("", UserRepo.getInstance().getUser().getValue().getUserName(),
+        Post post = new Post("", UserRepo.getInstance().getUser().getValue().getUserName(),
                 encoded,
                 editTxtImgTitle.getText().toString(),
                 0,

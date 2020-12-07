@@ -5,7 +5,7 @@ data class Post(
         val userName: String,
         val img: String,
         val imgTitle: String,
-        val imgLike: Int,
+        val imgViews: Int,
         val imgDesc: String,
         val imgTag: String,
         val location: String,

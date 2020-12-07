@@ -52,7 +52,7 @@ public interface ApiCalls {
     Call<ArrayList<Post>> getAllPublicPosts();
 
     @PUT("updatePost")
-    Call<Post> updatePost(@Query(value = "id") String id);
+    Call<Post> updatePost(@Body Post post);
 
     @DELETE("deletePost")
     Call<Post> deletePost(@Query(value = "id") String id);
