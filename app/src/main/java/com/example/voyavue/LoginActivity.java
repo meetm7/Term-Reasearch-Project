@@ -43,7 +43,6 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (currentUser != null) {
-
             fetchUserInfo(currentUser.getEmail());
         }
     }
@@ -123,27 +122,19 @@ public class LoginActivity extends AppCompatActivity {
 
             progressBarLogin.setVisibility(View.VISIBLE);
 
-            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        FirebaseUser user = mAuth.getCurrentUser();
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    FirebaseUser user = mAuth.getCurrentUser();
 
-                        fetchUserInfo(user.getEmail());
-                    } else {
-                        Toast.makeText(LoginActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                        progressBarLogin.setVisibility(View.INVISIBLE);
-                    }
+                    fetchUserInfo(user.getEmail());
+                } else {
+                    Toast.makeText(LoginActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    progressBarLogin.setVisibility(View.INVISIBLE);
                 }
             });
         });
 
-        txtViewNewMember.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
-            }
-        });
+        txtViewNewMember.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), RegisterActivity.class)));
     }
 
     void startMainActivity(User loggedInUser) {
