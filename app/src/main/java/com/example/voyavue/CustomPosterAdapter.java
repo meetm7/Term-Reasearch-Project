@@ -53,6 +53,7 @@ public class CustomPosterAdapter extends RecyclerView.Adapter<CustomPosterAdapte
         byte[] encodeByte = Base64.decode(postLists.get(position).getImg(), Base64.DEFAULT);
         Bitmap bitmap2 = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
         holder.imgViewPostPicture.setImageBitmap(bitmap2);
+        holder.txtViewNumberOfViews.setText("Views: "+postLists.get(position).getImgViews());
     }
 
     @Override
@@ -62,7 +63,7 @@ public class CustomPosterAdapter extends RecyclerView.Adapter<CustomPosterAdapte
 
     public class CustomViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView imgViewPostPicture;
-        TextView txtViewPostTitle, txtViewPostOwnerUserName, txtViewPostDescription;
+        TextView txtViewPostTitle, txtViewPostOwnerUserName, txtViewPostDescription, txtViewNumberOfViews;
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
@@ -71,6 +72,7 @@ public class CustomPosterAdapter extends RecyclerView.Adapter<CustomPosterAdapte
             txtViewPostOwnerUserName = itemView.findViewById(R.id.txtViewPostOwnerUserName);
             txtViewPostTitle = itemView.findViewById(R.id.txtViewPostTitle);
             txtViewPostDescription = itemView.findViewById(R.id.txtViewPostDescription);
+            txtViewNumberOfViews = itemView.findViewById(R.id.txtViewNumberOfViews);
 
         }
 
