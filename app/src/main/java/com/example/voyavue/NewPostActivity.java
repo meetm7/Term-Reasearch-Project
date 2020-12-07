@@ -76,6 +76,10 @@ public class NewPostActivity extends AppCompatActivity {
 
             btnDel.setOnClickListener(v -> delPost(id));
 
+            if(isEditable){
+                btnPost.setVisibility(View.INVISIBLE);
+            }
+
         } else {
 
             btnDel.setText("Close");

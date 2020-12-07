@@ -1,16 +1,22 @@
 package com.example.voyavue;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.voyavue.api.ApiCalls;
 import com.example.voyavue.api.RetroInstance;
 import com.example.voyavue.models.AdminDashBoardInfo;
+import com.example.voyavue.repositories.UserRepo;
+import com.google.firebase.auth.FirebaseAuth;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,7 +24,7 @@ import retrofit2.Response;
 
 public class AdminActivity extends AppCompatActivity {
 
-    Button btnAddVerifiedPost;
+    Button btnAddVerifiedPost, btnLogOut;
     TextView textViewNumOfUsers, textViewMaleUsers, textViewFemaleUsers;
     TextView textViewTotalNumberOfPosts, textViewNumOfVerifiedPosts;
 
@@ -28,6 +34,8 @@ public class AdminActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin);
 
         btnAddVerifiedPost = findViewById(R.id.btnAddVerifiedPost);
+        btnLogOut = findViewById(R.id.btnLogOut);
+
         textViewNumOfUsers = findViewById(R.id.textViewNumOfUsers);
         textViewMaleUsers = findViewById(R.id.textViewMaleUsers);
         textViewFemaleUsers = findViewById(R.id.textViewFemaleUsers);
@@ -38,6 +46,13 @@ public class AdminActivity extends AppCompatActivity {
 
         btnAddVerifiedPost.setOnClickListener(view ->
                 startActivity(new Intent(AdminActivity.this, NewPostActivity.class)));
+
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logOut();
+            }
+        });
     }
 
     private void fetchAdminInfo() {
@@ -46,7 +61,7 @@ public class AdminActivity extends AppCompatActivity {
         call.enqueue(new Callback<AdminDashBoardInfo>() {
             @Override
             public void onResponse(Call<AdminDashBoardInfo> call, Response<AdminDashBoardInfo> response) {
-                if(response.body()!=null){
+                if (response.body() != null) {
 
                     AdminDashBoardInfo info = response.body();
 
@@ -64,5 +79,15 @@ public class AdminActivity extends AppCompatActivity {
                 Log.d("Admin Activity:", "onFailure: " + t.getMessage());
             }
         });
+    }
+
+    private void logOut() {
+        FirebaseAuth.getInstance().signOut();
+        UserRepo uRepo = UserRepo.getInstance();
+        uRepo.clearUserInfo();
+
+        Toast.makeText(this, "Logged Out", Toast.LENGTH_LONG).show();
+        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        finish();
     }
 }

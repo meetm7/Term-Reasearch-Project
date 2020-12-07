@@ -73,8 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:ems="10"
-                android:hint="@string/timeToVisitHint"
-                android:inputType="time" />
+                android:hint="@string/timeToVisitHint" />
 
             <EditText
                 android:id="@+id/editTxtCost"
