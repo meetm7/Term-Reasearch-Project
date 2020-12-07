@@ -9,12 +9,15 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.voyavue.api.ApiCalls;
 import com.example.voyavue.api.RetroInstance;
@@ -34,8 +37,9 @@ public class NewPostActivity extends AppCompatActivity {
     private static final int RESULT_LOAD_IMAGE = 1;
 
     String encoded;
-    EditText editTxtImgTitle;
+    EditText editTxtImgTitle, editTxtImgDesc, editTxtTimeToVisit, editTxtCost;
     ImageView imgViewPost;
+    Spinner spinnerImgTags, spinnerLocation;
     Button btnPost;
 
     @Override
@@ -46,6 +50,13 @@ public class NewPostActivity extends AppCompatActivity {
         encoded = null;
 
         imgViewPost = findViewById(R.id.imgViewPost);
+        editTxtImgTitle = findViewById(R.id.editTxtImgTitle);
+        editTxtImgDesc = findViewById(R.id.editTxtImgDesc);
+        editTxtTimeToVisit = findViewById(R.id.editTxtTimeToVisit);
+        editTxtCost = findViewById(R.id.editTxtCost);
+        spinnerImgTags = findViewById(R.id.spinnerImgTags);
+        spinnerLocation = findViewById(R.id.spinnerLocation);
+        btnPost = findViewById(R.id.btnPost);
 
         imgViewPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,8 +67,6 @@ public class NewPostActivity extends AppCompatActivity {
             }
         });
 
-        editTxtImgTitle = findViewById(R.id.editTxtImgTitle);
-        btnPost = findViewById(R.id.btnPost);
         btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,15 +104,23 @@ public class NewPostActivity extends AppCompatActivity {
 
     private void savePost() {
 
+        if (TextUtils.isEmpty(editTxtImgTitle.getText().toString()) ||
+                TextUtils.isEmpty(editTxtTimeToVisit.getText().toString()) ||
+                TextUtils.isEmpty(editTxtCost.getText().toString()) ||
+                TextUtils.isEmpty(editTxtImgDesc.getText().toString())){
+            Toast.makeText(NewPostActivity.this, "Please fill all the fields before posting", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         final Post post = new Post("",UserRepo.getInstance().getUser().getValue().getUserName(),
                 encoded,
                 editTxtImgTitle.getText().toString(),
-                2,
-                "img desc",
-                "img Tag",
-                "location",
-                "time to",
-                "expe ",
+                0,
+                editTxtImgDesc.getText().toString(),
+                spinnerImgTags.getSelectedItem().toString(),
+                spinnerLocation.getSelectedItem().toString(),
+                editTxtTimeToVisit.getText().toString(),
+                editTxtCost.getText().toString(),
                 false,
                 false);
 

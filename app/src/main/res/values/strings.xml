@@ -42,4 +42,17 @@
         <item>Female</item>
         <item>Other</item>
     </string-array>
+    <string-array name="Tags">
+        <item>Sightseeing</item>
+        <item>Kids</item>
+        <item>Shopping</item>
+        <item>Food</item>
+        <item>Restaurant</item>
+        <item>Nature</item>
+    </string-array>
+    <string-array name="Location">
+        <item>Toronto</item>
+        <item>Calgary</item>
+        <item>Vancouver</item>
+    </string-array>
 </resources>
