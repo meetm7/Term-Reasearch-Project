@@ -270,6 +270,7 @@ public class NewPostActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {
                 Toast.makeText(NewPostActivity.this, "Post Added", Toast.LENGTH_LONG).show();
+                finish();
             }
 
             @Override

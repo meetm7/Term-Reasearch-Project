@@ -1,6 +1,7 @@
 package com.example.voyavue.api;
 
 import com.example.voyavue.models.AdditionProfileInfo;
+import com.example.voyavue.models.AdminDashBoardInfo;
 import com.example.voyavue.models.Post;
 import com.example.voyavue.models.User;
 
@@ -56,4 +57,9 @@ public interface ApiCalls {
 
     @DELETE("deletePost")
     Call<Post> deletePost(@Query(value = "id") String id);
+
+    //admin
+
+    @GET("getAdminDashBoardDetails")
+    Call<AdminDashBoardInfo> getAdminDashBoardDetails();
 }

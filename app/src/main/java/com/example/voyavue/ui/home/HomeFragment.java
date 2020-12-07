@@ -58,6 +58,12 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        homeViewModel.fecthPosts();
+    }
+
     private void setOnClickListner() {
         mListner = new CustomPosterAdapter.RecyclerViewClickListener() {
             @Override

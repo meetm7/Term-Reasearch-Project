@@ -23,8 +23,11 @@ public class ExploreViewModel extends ViewModel {
 
     private final MutableLiveData<ArrayList<Post>> mPost;
 
+    private final MutableLiveData<ArrayList<Post>> filteredPost;
+
     public ExploreViewModel() {
         mPost = new MutableLiveData<>();
+        filteredPost = new MutableLiveData<>();
         fetchPost();
     }
 
@@ -53,7 +56,7 @@ public class ExploreViewModel extends ViewModel {
                     .filter(post -> post.getImgTag().compareTo(tags) == 0).collect(Collectors.toList());
 
             if (newList.size() > 0) {
-                mPost.setValue((ArrayList<Post>) newList);
+                filteredPost.setValue((ArrayList<Post>) newList);
             }
         }
     }
@@ -65,12 +68,30 @@ public class ExploreViewModel extends ViewModel {
                     .filter(post -> post.getLocation().compareTo(location) == 0).collect(Collectors.toList());
 
             if (newList.size() > 0) {
-                mPost.setValue((ArrayList<Post>) newList);
+                filteredPost.setValue((ArrayList<Post>) newList);
             }
         }
     }
 
+    public void filterVerifiedPosts() {
+
+        if (mPost.getValue() != null) {
+
+            List<Post> newList = mPost.getValue().stream()
+                    .filter(post -> post.isVerified()).collect(Collectors.toList());
+
+            if (newList.size() > 0) {
+                filteredPost.setValue((ArrayList<Post>) newList);
+            }
+        }
+
+    }
+
     public LiveData<ArrayList<Post>> getPosts() {
         return mPost;
+    }
+
+    public LiveData<ArrayList<Post>> getFilteredPosts() {
+        return filteredPost;
     }
 }

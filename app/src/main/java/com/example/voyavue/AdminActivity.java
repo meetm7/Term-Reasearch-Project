@@ -25,7 +25,6 @@ public class AdminActivity extends AppCompatActivity {
         textViewMaleUsers = findViewById(R.id.textViewMaleUsers);
         textViewFemaleUsers = findViewById(R.id.textViewFemaleUsers);
         textViewTotalNumberOfPosts = findViewById(R.id.textViewTotalNumberOfPosts);
-        textViewAvgNumOfLikes = findViewById(R.id.textViewAvgNumOfLikes);
         textViewNumOfVerifiedPosts = findViewById(R.id.textViewNumOfVerifiedPosts);
 
         btnAddVerifiedPost.setOnClickListener(view ->

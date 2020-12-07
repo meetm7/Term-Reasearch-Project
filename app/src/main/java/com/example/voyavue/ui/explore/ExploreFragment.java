@@ -57,6 +57,8 @@ public class ExploreFragment extends Fragment {
 
         exploreViewModel.getPosts().observe(getViewLifecycleOwner(), posts -> customPosterAdapter.ChangeData(posts));
 
+        exploreViewModel.getFilteredPosts().observe(getViewLifecycleOwner(), posts -> customPosterAdapter.ChangeData(posts));
+
         spinnerTagsFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -88,6 +90,7 @@ public class ExploreFragment extends Fragment {
                 tglBtnVerifiedFilter.setTextOff("Unverified Posts");
             } else {
                 tglBtnVerifiedFilter.setTextOn("Verified Posts");
+                exploreViewModel.filterVerifiedPosts();
             }
         });
 
