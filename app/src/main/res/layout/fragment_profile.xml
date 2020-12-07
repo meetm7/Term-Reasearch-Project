@@ -190,15 +190,14 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btnUpdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Save" />
         </LinearLayout>
     </ScrollView>
-
-    <Button
-        android:id="@+id/btnUpdate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginRight="80dp"
-        android:text="Save" />
 
 </LinearLayout>

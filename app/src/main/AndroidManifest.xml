@@ -13,11 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.postdetailedview.PostDetailedViewActivity"></activity>
-        <activity android:name=".NewPostActivity">
-        </activity>
-        <activity android:name=".MainActivity" >
-        </activity>
+        <activity android:name=".AdminActivity"></activity>
+        <activity android:name=".ui.postdetailedview.PostDetailedViewActivity" />
+        <activity android:name=".NewPostActivity"></activity>
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

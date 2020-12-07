@@ -37,6 +37,9 @@
     <string name="PostPicture">Post main display picture</string>
     <string name="StarButton">Star button to like post</string>
     <string name="title_new">Add Post</string>
+    <string name="toggleButton" />
+    <string name="toggleButtonVerified">Verified</string>
+    <string name="toggleButtonUnverified">Unverified</string>
     <string-array name="Gender">
         <item>Male</item>
         <item>Female</item>
