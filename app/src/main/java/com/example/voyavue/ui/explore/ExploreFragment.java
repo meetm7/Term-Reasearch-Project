@@ -7,7 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.GridView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,6 +32,9 @@ public class ExploreFragment extends Fragment {
 
     private ExploreViewModel exploreViewModel;
     private RecyclerView recyclerView;
+    private Spinner spinnerTagsFilter;
+    private Spinner spinnerLocationFilter;
+    private ToggleButton tglBtnVerifiedFilter;
 
     private CustomPosterAdapter.RecyclerViewClickListener mListner;
 
@@ -44,6 +49,10 @@ public class ExploreFragment extends Fragment {
         setOnClickListner();
 
         recyclerView = root.findViewById(R.id.recyclerViewAllPosts);
+        spinnerTagsFilter = root.findViewById(R.id.spinnerTagsFilter);
+        spinnerLocationFilter = root.findViewById(R.id.spinnerLocationFilter);
+        tglBtnVerifiedFilter = root.findViewById(R.id.tglBtnVerifiedFilter);
+
         final CustomPosterAdapter customPosterAdapter = new CustomPosterAdapter(allPosts, mListner);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(root.getContext());
 

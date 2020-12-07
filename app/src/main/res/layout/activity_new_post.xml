@@ -58,16 +58,14 @@
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:entries="@array/Tags"
-                android:popupElevation="16dp" />
+                android:entries="@array/Tags" />
 
             <Spinner
                 android:id="@+id/spinnerLocation"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:entries="@array/Location"
-                android:popupElevation="16dp" />
+                android:entries="@array/Location" />
 
             <EditText
                 android:id="@+id/editTxtTimeToVisit"
