@@ -4,4 +4,209 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AdminActivity"/>
+    tools:context=".AdminActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Users Information"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textSize="30sp" />
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="20dp">
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/textView"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:text="Total Number Of Users:"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                            <TextView
+                                android:id="@+id/textViewNumOfUsers"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="10"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/textView4"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:text="Average number of posts per user:"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                            <TextView
+                                android:id="@+id/textViewAvgPostPerUser"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="5"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/textView6"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:text="Male Users:"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                            <TextView
+                                android:id="@+id/textViewMaleUsers"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="6"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/textView8"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:text="Female Users:"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                            <TextView
+                                android:id="@+id/textViewFemaleUsers"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="4"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                        </TableRow>
+                    </TableLayout>
+                </ScrollView>
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:text="Posts Information"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textSize="30sp" />
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="20dp">
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/textView11"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:text="Total Number Of Posts:"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                            <TextView
+                                android:id="@+id/textViewTotalNumberOfPosts"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="15"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/textView13"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:text="Average Number of Views per Post:"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                            <TextView
+                                android:id="@+id/textViewAvgNumOfLikes"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="100"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/textView15"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:text="Number of Verified Posts:"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                            <TextView
+                                android:id="@+id/textViewNumOfVerifiedPosts"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="25"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                        </TableRow>
+
+                    </TableLayout>
+                </ScrollView>
+
+                <Button
+                    android:id="@+id/btnAddVerifiedPost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50sp"
+                    android:text="Add Verified Post" />
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
