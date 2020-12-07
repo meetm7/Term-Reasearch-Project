@@ -47,8 +47,6 @@ public class NewPostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_post);
 
-        encoded = null;
-
         imgViewPost = findViewById(R.id.imgViewPost);
         editTxtImgTitle = findViewById(R.id.editTxtImgTitle);
         editTxtImgDesc = findViewById(R.id.editTxtImgDesc);
@@ -58,21 +56,73 @@ public class NewPostActivity extends AppCompatActivity {
         spinnerLocation = findViewById(R.id.spinnerLocation);
         btnPost = findViewById(R.id.btnPost);
 
-        imgViewPost.setOnClickListener(new View.OnClickListener() {
+        encoded = null;
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String id = extras.getString("postId");
+            boolean isEditable = extras.getBoolean("isEditable");
+
+            getPost(id);
+
+        } else {
+            imgViewPost.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(
+                            Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(i, RESULT_LOAD_IMAGE);
+                }
+            });
+
+            btnPost.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    savePost();
+                }
+            });
+        }
+
+    }
+
+    private void getPost(String id) {
+
+        Toast.makeText(NewPostActivity.this, "Retrieving Post details", Toast.LENGTH_LONG).show();
+
+        ApiCalls apiCall = RetroInstance.getRetrofitClient().create(ApiCalls.class);
+        Call<Post> call = apiCall.getPost(id);
+
+        call.enqueue(new Callback<Post>() {
             @Override
-            public void onClick(View v) {
-                Intent i = new Intent(
-                        Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(i, RESULT_LOAD_IMAGE);
+            public void onResponse(Call<Post> call, Response<Post> response) {
+                Post post = response.body();
+                setDetails(post);
+            }
+
+            @Override
+            public void onFailure(Call<Post> call, Throwable t) {
+                Log.d("TAG", "onFailure: " + t.getMessage());
+                Toast.makeText(NewPostActivity.this, "Failed to perform action", Toast.LENGTH_LONG).show();
             }
         });
 
-        btnPost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                savePost();
-            }
-        });
+    }
+
+    private void setDetails(Post post) {
+
+        byte[] encodeByte = Base64.decode(post.getImg(), Base64.DEFAULT);
+        Bitmap bitmap2 = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+        imgViewPost.setImageBitmap(bitmap2);
+
+        editTxtImgTitle.setText(post.getImgTitle());
+        editTxtImgDesc.setText(post.getImgDesc());
+        editTxtTimeToVisit.setText(post.getBestTimeToVisit());
+        editTxtCost.setText(post.getExpenseToConsider());
+
+        spinnerImgTags = findViewById(R.id.spinnerImgTags);
+        spinnerLocation = findViewById(R.id.spinnerLocation);
+
+        btnPost.setText("Save");
     }
 
     @Override
@@ -107,12 +157,12 @@ public class NewPostActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(editTxtImgTitle.getText().toString()) ||
                 TextUtils.isEmpty(editTxtTimeToVisit.getText().toString()) ||
                 TextUtils.isEmpty(editTxtCost.getText().toString()) ||
-                TextUtils.isEmpty(editTxtImgDesc.getText().toString())){
+                TextUtils.isEmpty(editTxtImgDesc.getText().toString())) {
             Toast.makeText(NewPostActivity.this, "Please fill all the fields before posting", Toast.LENGTH_LONG).show();
             return;
         }
 
-        final Post post = new Post("",UserRepo.getInstance().getUser().getValue().getUserName(),
+        final Post post = new Post("", UserRepo.getInstance().getUser().getValue().getUserName(),
                 encoded,
                 editTxtImgTitle.getText().toString(),
                 0,

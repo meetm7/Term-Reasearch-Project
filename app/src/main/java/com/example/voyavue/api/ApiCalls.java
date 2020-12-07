@@ -30,6 +30,9 @@ public interface ApiCalls {
     @POST("addPost")
     Call<Post> addPost(@Body Post post);
 
+    @GET("getPost")
+    Call<Post> getPost(@Query(value = "id") String id);
+
     @GET("getPostsByUser")
     Call<ArrayList<Post>> getPostsByUser(@Query(value = "userName") String userName);
 

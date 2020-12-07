@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,15 +16,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.voyavue.models.Post;
 
 import java.util.List;
-import java.util.TooManyListenersException;
 
 public class CustomPosterAdapter extends RecyclerView.Adapter<CustomPosterAdapter.CustomViewHolder> {
 
     List<Post> postLists;
     Context context;
 
-    public CustomPosterAdapter(List<Post> passedPostLists){
+    RecyclerViewClickListener mListner;
+
+    public CustomPosterAdapter(List<Post> passedPostLists, RecyclerViewClickListener listner){
         this.postLists = passedPostLists;
+        this.mListner = listner;
     }
 
     public void ChangeData(List<Post> passedPostLists){
@@ -59,23 +60,27 @@ public class CustomPosterAdapter extends RecyclerView.Adapter<CustomPosterAdapte
         return postLists.size();
     }
 
-    public class CustomViewHolder extends RecyclerView.ViewHolder{
+    public class CustomViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView imgViewPostPicture;
         TextView txtViewPostTitle, txtViewPostOwnerUserName, txtViewPostDescription;
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
             imgViewPostPicture = itemView.findViewById(R.id.imgViewPostPicture);
 
             txtViewPostOwnerUserName = itemView.findViewById(R.id.txtViewPostOwnerUserName);
             txtViewPostTitle = itemView.findViewById(R.id.txtViewPostTitle);
             txtViewPostDescription = itemView.findViewById(R.id.txtViewPostDescription);
 
-            imgViewPostPicture.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(context, "Opening Post!", Toast.LENGTH_LONG).show();
-                }
-            });
         }
+
+        @Override
+        public void onClick(View v) {
+            mListner.onClick(v, postLists.get(getAdapterPosition()).get_id());
+        }
+    }
+
+    public interface RecyclerViewClickListener {
+        void onClick(View v, String id);
     }
 }
