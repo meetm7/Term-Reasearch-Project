@@ -24,12 +24,12 @@ public class CustomPosterAdapter extends RecyclerView.Adapter<CustomPosterAdapte
 
     RecyclerViewClickListener mListner;
 
-    public CustomPosterAdapter(List<Post> passedPostLists, RecyclerViewClickListener listner){
+    public CustomPosterAdapter(List<Post> passedPostLists, RecyclerViewClickListener listner) {
         this.postLists = passedPostLists;
         this.mListner = listner;
     }
 
-    public void ChangeData(List<Post> passedPostLists){
+    public void ChangeData(List<Post> passedPostLists) {
         this.postLists = passedPostLists;
         notifyDataSetChanged();
     }
@@ -53,7 +53,8 @@ public class CustomPosterAdapter extends RecyclerView.Adapter<CustomPosterAdapte
         byte[] encodeByte = Base64.decode(postLists.get(position).getImg(), Base64.DEFAULT);
         Bitmap bitmap2 = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
         holder.imgViewPostPicture.setImageBitmap(bitmap2);
-        holder.txtViewNumberOfViews.setText("Views: "+postLists.get(position).getImgViews());
+        holder.txtViewNumberOfViews.setText("Views: " + postLists.get(position).getImgViews());
+        holder.tvBestTime.setText(postLists.get(position).getBestTimeToVisit());
     }
 
     @Override
@@ -61,9 +62,10 @@ public class CustomPosterAdapter extends RecyclerView.Adapter<CustomPosterAdapte
         return postLists.size();
     }
 
-    public class CustomViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class CustomViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView imgViewPostPicture;
-        TextView txtViewPostTitle, txtViewPostOwnerUserName, txtViewPostDescription, txtViewNumberOfViews;
+        TextView txtViewPostTitle, tvBestTime, txtViewPostOwnerUserName, txtViewPostDescription, txtViewNumberOfViews;
+
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
@@ -73,6 +75,7 @@ public class CustomPosterAdapter extends RecyclerView.Adapter<CustomPosterAdapte
             txtViewPostTitle = itemView.findViewById(R.id.txtViewPostTitle);
             txtViewPostDescription = itemView.findViewById(R.id.txtViewPostDescription);
             txtViewNumberOfViews = itemView.findViewById(R.id.txtViewNumberOfViews);
+            tvBestTime = itemView.findViewById(R.id.tvBestTime);
 
         }
 

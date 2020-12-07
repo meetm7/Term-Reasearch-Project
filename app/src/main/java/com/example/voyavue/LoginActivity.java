@@ -1,12 +1,7 @@
 package com.example.voyavue;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.MutableLiveData;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +10,9 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.voyavue.api.ApiCalls;
 import com.example.voyavue.api.RetroInstance;
@@ -88,65 +86,56 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        editTxtLoginEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (TextUtils.isEmpty(editTxtLoginEmail.getText().toString().trim())) {
-                    editTxtLoginEmail.setError("Full name is required!");
-                    return;
-                }
+        editTxtLoginEmail.setOnFocusChangeListener((view, b) -> {
+            if (TextUtils.isEmpty(editTxtLoginEmail.getText().toString().trim())) {
+                editTxtLoginEmail.setError("Full name is required!");
+                return;
             }
         });
 
-        editTxtLoginPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (TextUtils.isEmpty(editTxtLoginPassword.getText().toString().trim())) {
-                    editTxtLoginPassword.setError("Password is required!");
-                    return;
-                }
-                if (editTxtLoginPassword.getText().toString().trim().length() < 6) {
-                    editTxtLoginPassword.setError("Password must be greater than 6 characters!");
-                    return;
-                }
+        editTxtLoginPassword.setOnFocusChangeListener((view, b) -> {
+            if (TextUtils.isEmpty(editTxtLoginPassword.getText().toString().trim())) {
+                editTxtLoginPassword.setError("Password is required!");
+                return;
+            }
+            if (editTxtLoginPassword.getText().toString().trim().length() < 6) {
+                editTxtLoginPassword.setError("Password must be greater than 6 characters!");
+                return;
             }
         });
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String email = editTxtLoginEmail.getText().toString().trim();
-                String password = editTxtLoginPassword.getText().toString().trim();
+        btnLogin.setOnClickListener(view -> {
+            String email = editTxtLoginEmail.getText().toString().trim();
+            String password = editTxtLoginPassword.getText().toString().trim();
 
-                if (TextUtils.isEmpty(email)) {
-                    editTxtLoginEmail.setError("Email is required!");
-                    return;
-                }
-                if (TextUtils.isEmpty(password)) {
-                    editTxtLoginPassword.setError("Password is required!");
-                    return;
-                }
-                if (password.length() < 6) {
-                    editTxtLoginPassword.setError("Password must be greater than 6 characters!");
-                    return;
-                }
+            if (TextUtils.isEmpty(email)) {
+                editTxtLoginEmail.setError("Email is required!");
+                return;
+            }
+            if (TextUtils.isEmpty(password)) {
+                editTxtLoginPassword.setError("Password is required!");
+                return;
+            }
+            if (password.length() < 6) {
+                editTxtLoginPassword.setError("Password must be greater than 6 characters!");
+                return;
+            }
 
-                progressBarLogin.setVisibility(View.VISIBLE);
+            progressBarLogin.setVisibility(View.VISIBLE);
 
-                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            FirebaseUser user = mAuth.getCurrentUser();
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        FirebaseUser user = mAuth.getCurrentUser();
 
-                            fetchUserInfo(user.getEmail());
-                        } else {
-                            Toast.makeText(LoginActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                            progressBarLogin.setVisibility(View.INVISIBLE);
-                        }
+                        fetchUserInfo(user.getEmail());
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                        progressBarLogin.setVisibility(View.INVISIBLE);
                     }
-                });
-            }
+                }
+            });
         });
 
         txtViewNewMember.setOnClickListener(new View.OnClickListener() {

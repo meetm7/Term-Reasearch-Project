@@ -1,17 +1,14 @@
 package com.example.voyavue.ui.home;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.voyavue.LoginActivity;
 import com.example.voyavue.api.ApiCalls;
 import com.example.voyavue.api.RetroInstance;
 import com.example.voyavue.models.Post;
-import com.example.voyavue.models.User;
 import com.example.voyavue.repositories.UserRepo;
 
 import java.util.ArrayList;

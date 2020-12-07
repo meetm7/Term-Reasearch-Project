@@ -1,18 +1,8 @@
 package com.example.voyavue.repositories;
 
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.voyavue.api.ApiCalls;
-import com.example.voyavue.api.RetroInstance;
 import com.example.voyavue.models.User;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class UserRepo {
 

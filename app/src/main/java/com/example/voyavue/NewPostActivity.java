@@ -1,8 +1,5 @@
 package com.example.voyavue;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,6 +16,9 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.voyavue.api.ApiCalls;
 import com.example.voyavue.api.RetroInstance;
 import com.example.voyavue.models.Post;
@@ -26,7 +26,6 @@ import com.example.voyavue.repositories.UserRepo;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -73,46 +72,23 @@ public class NewPostActivity extends AppCompatActivity {
 
             getPost(id);
 
-            btnPost.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    updatePost(id);
-                }
-            });
+            btnPost.setOnClickListener(view -> updatePost(id));
 
-            btnDel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    delPost(id);
-                }
-            });
+            btnDel.setOnClickListener(v -> delPost(id));
 
         } else {
 
             btnDel.setText("Close");
 
-            imgViewPost.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(
-                            Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(i, RESULT_LOAD_IMAGE);
-                }
+            imgViewPost.setOnClickListener(v -> {
+                Intent i = new Intent(
+                        Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(i, RESULT_LOAD_IMAGE);
             });
 
-            btnPost.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    savePost();
-                }
-            });
+            btnPost.setOnClickListener(view -> savePost());
 
-            btnDel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
-                }
-            });
+            btnDel.setOnClickListener(v -> finish());
         }
 
     }

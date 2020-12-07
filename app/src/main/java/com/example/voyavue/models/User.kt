@@ -1,7 +1,5 @@
 package com.example.voyavue.models
 
-import java.util.*
-
 data class User(
         val firstName:String,
         val lastName: String,

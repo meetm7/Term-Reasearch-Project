@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModel;
 import com.example.voyavue.api.ApiCalls;
 import com.example.voyavue.api.RetroInstance;
 import com.example.voyavue.models.Post;
-import com.example.voyavue.repositories.UserRepo;
 
 import java.util.ArrayList;
 import java.util.List;

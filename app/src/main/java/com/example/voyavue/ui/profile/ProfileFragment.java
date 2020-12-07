@@ -1,6 +1,5 @@
 package com.example.voyavue.ui.profile;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,8 +22,6 @@ import com.example.voyavue.api.RetroInstance;
 import com.example.voyavue.models.AdditionProfileInfo;
 import com.example.voyavue.models.User;
 import com.example.voyavue.repositories.UserRepo;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
