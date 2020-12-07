@@ -45,7 +45,7 @@ public class CustomGrid extends BaseAdapter {
 
         ImageView imageView;
         if (view == null) {  // if it's not recycled, initialize some attributes
-            imageView = new ImageView(view.getContext());
+            imageView = view.findViewById(R.id.imageViewPost);
             imageView.setLayoutParams(new GridView.LayoutParams(150, 150));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setPadding(8, 8, 8, 8);
