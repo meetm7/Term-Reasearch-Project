@@ -36,8 +36,8 @@ public interface ApiCalls {
     @GET("getPostsByUser")
     Call<ArrayList<Post>> getPostsByUser(@Query(value = "userName") String userName);
 
-    @GET("getAllPosts")
-    Call<List<Post>> getAllPosts();
+    @GET("getAllPublicPosts")
+    Call<ArrayList<Post>> getAllPublicPosts();
 
     @GET("getUserProfileInfo")
     Call<AdditionProfileInfo> getUserProfileInfoByUserName(@Query(value = "userName") String userName);
