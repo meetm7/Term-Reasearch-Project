@@ -158,7 +158,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     void startMainActivity(User loggedInUser) {
-        Toast.makeText(LoginActivity.this, "Logged In: " + loggedInUser.toString(), Toast.LENGTH_LONG).show();
+        Toast.makeText(LoginActivity.this, "Welcome: " + loggedInUser.getUserName(), Toast.LENGTH_LONG).show();
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
         finish();
     }

@@ -130,12 +130,13 @@ public class NewPostActivity extends AppCompatActivity {
         call.enqueue(new Callback<Post>() {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {
-                Log.d("TAG", "onResponse: " + response.body());
+                Toast.makeText(NewPostActivity.this, "Post Added", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onFailure(Call<Post> call, Throwable t) {
                 Log.d("TAG", "onFailure: " + t.getMessage());
+                Toast.makeText(NewPostActivity.this, "Failed to perform action", Toast.LENGTH_LONG).show();
             }
         });
     }
